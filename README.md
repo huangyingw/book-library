@@ -1,7 +1,11 @@
 # Book Library
+Application which allow borrowing books
 
 ## Installing
-Use '''Instal''' 
+Instruction
+
+## Running the tests
+Test
 
 ## Build with
 * [Gradle](https://gradle.org/) - Dependency Management
