@@ -4,4 +4,4 @@
 Use '''Instal''' 
 
 ## Author
-*Trong Manh Tu*
+**Trong Manh Tu**
