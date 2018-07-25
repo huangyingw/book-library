@@ -10,9 +10,10 @@ public class BookEntity {
     private Long id;
     private String title;
     private String description;
-//    private Date date;
     @ManyToOne
     private AuthorEntity author;
+    @ManyToOne
+    private CategoryEntity category;
 
     public BookEntity() {
     }
@@ -23,14 +24,6 @@ public class BookEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public AuthorEntity getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(AuthorEntity author) {
-        this.author = author;
     }
 
     public String getTitle() {
@@ -49,11 +42,19 @@ public class BookEntity {
         this.description = description;
     }
 
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
+    public AuthorEntity getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AuthorEntity author) {
+        this.author = author;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 }
