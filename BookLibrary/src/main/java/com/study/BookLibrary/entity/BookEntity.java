@@ -1,7 +1,6 @@
 package com.study.BookLibrary.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class BookEntity {

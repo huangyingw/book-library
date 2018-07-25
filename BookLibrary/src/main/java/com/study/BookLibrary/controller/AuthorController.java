@@ -2,7 +2,11 @@ package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.service.AuthorService;
+
+import java.sql.SQLOutput;
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+@Slf4j
 @RestController
 @RequestMapping("/library/author")
 public class AuthorController {
@@ -24,7 +28,7 @@ public class AuthorController {
     this.authorService = authorService;
   }
 
-  @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<AuthorEntity>> getAllAuthors() {
     return new ResponseEntity<>(authorService.getAllAuthors(), HttpStatus.OK);
   }
