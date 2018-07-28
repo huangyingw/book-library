@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  book-library-service:
+    image:  book-library-service
+    container_name: book-library-service
+    ports:
+      - "8082:8010"
+    restart: on-failure
+
