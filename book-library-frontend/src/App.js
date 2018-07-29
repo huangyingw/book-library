@@ -11,7 +11,6 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          asdasd
           <Navigation />
           <Switch>
             <Route path="/" component={Home} exact />

@@ -1,0 +1,4 @@
+td#description {
+  word-break: break-all;
+  border: 1px solid blue;
+}

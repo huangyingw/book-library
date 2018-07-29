@@ -1,7 +1,7 @@
 import requests
 import json
 
-uri = "http://localhost:8010"
+uri = "http://localhost:8082"
 
 # INSERT AUTHORS
 authors = {
