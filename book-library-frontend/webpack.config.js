@@ -1,8 +1,8 @@
 var webpack = require('webpack');
 var environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 var SERVER_URL = {
-	production: JSON.stringify('http://localhost:8082'),
-	development: JSON.stringify('http://localhost:8082')
+	production: JSON.stringify('http://localhost:8010'),
+	development: JSON.stringify('http://localhost:8010')
 }
 
 module.exports = {
@@ -17,6 +17,10 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.(jpe?g|png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+				use: 'base64-inline-loader?limit=1000&name=[name].[ext]'
 			}
 		]
 	},

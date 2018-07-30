@@ -38,22 +38,19 @@ public class BookImageController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBookImage(@RequestParam(value = "file")MultipartFile file, @RequestPart(value = "id")String id) {
+  public void addBookImage(@RequestParam(value = "file")MultipartFile file) {
     log.debug("My Log: " + file.getOriginalFilename());
-    log.debug("My Log: " + id);
-    bookImageService.addBookImage(convertToEntity(file, Long.parseLong(id)));
+    bookImageService.addBookImage(convertToEntity(file));
   }
 
-  private BookImageEntity convertToEntity(MultipartFile file, Long id) {
+  private BookImageEntity convertToEntity(MultipartFile file) {
     BookImageEntity entity = new BookImageEntity();
     try {
       entity.setImageDataFiles(file.getBytes());
     } catch (IOException e) {
       throw new InternalServerErrorException(e.getMessage());
     }
-    BookEntity bookEntity = new BookEntity();
-    bookEntity.setId(id);
-    entity.setBook(bookEntity);
+    entity.setFileName(file.getOriginalFilename());
     return entity;
   }
 }

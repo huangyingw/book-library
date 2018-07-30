@@ -13,6 +13,8 @@ public class BookEntity {
     private AuthorEntity author;
     @ManyToOne
     private CategoryEntity category;
+    @OneToOne
+    private BookImageEntity bookImage;
 
     public BookEntity() {
     }
@@ -55,5 +57,13 @@ public class BookEntity {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public BookImageEntity getBookImage() {
+        return bookImage;
+    }
+
+    public void setBookImage(BookImageEntity bookImage) {
+        this.bookImage = bookImage;
     }
 }

@@ -7,10 +7,10 @@ class Repository extends Component {
   }
 
   componentWillMount() {
-    this.getAll();
+    this.getAllBooks();
   }
 
-  getAll() {
+  getAllBooks() {
     const url = SERVER_URL + '/library/book';
     axios.get(url)
       .then(response => {
@@ -18,7 +18,7 @@ class Repository extends Component {
           allBooks: response.data
         })
       })
-    console.log(this.state.allBooks)
+    console.log("All books: ", this.state.allBooks)
   }
 
   render () {
@@ -26,16 +26,15 @@ class Repository extends Component {
       <div>
         <table>
           <tbody>
-            {
-              this.state.allBooks.map(map =>
+            {this.state.allBooks.map(map =>
                 <tr key={map.id}>
+                  <td><img src={"data:image/svg+xml;base64," + map.bookImage.imageDataFiles} width='150' height='200' alt='map' /></td>
                   <td id="description">
                     Name: {map.title}<p />
                     Description: {map.description}
                   </td>
                 </tr>
-              )
-            }
+            )}
           </tbody>
         </table>
       </div>
