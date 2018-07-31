@@ -20,11 +20,11 @@ for key in authors:
     assert r.status_code == 201
 
 # INSERT CATEGORY 
-categories = {
-    "Drama",
+categories = [
+    "Fantasy",
     "History",
-    "Fantasy"
-}
+    "Drama"
+]
 
 for category in categories:
     data = {
@@ -35,11 +35,11 @@ for category in categories:
     assert r.status_code == 201
 
 # INSERT PUBLISHER
-publishers = {
+publishers = [
     "superNowa",
     "HistoricPub",
     "PWN"
-}
+]
 
 for publisher in publishers:
     data = {
@@ -51,11 +51,11 @@ for publisher in publishers:
 
 
 #INSERT BOOK_IMAGE
-book_images = {
-	('wiedzmin.jpg', open('wiedzmin.jpg', 'rb'), 'image/jpg'),
+book_images = [
+    ('wiedzmin.jpg', open('wiedzmin.jpg', 'rb'), 'image/jpg'),
     ('krzyzacy.jpg', open('krzyzacy.jpg', 'rb'), 'image/jpg'),
     ('dziady.jpg', open('dziady.jpg', 'rb'), 'image/jpg')
-}
+]
 
 for book_image in book_images:
     data = {
