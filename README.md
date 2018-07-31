@@ -2,7 +2,7 @@
 Application which allow borrowing books.
 
 ## Getting Started
-[Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [npm](https://www.npmjs.com/get-npm) are required.
+[Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), [npm](https://www.npmjs.com/get-npm) are required.
 
 ## Installing
 To run BookLibraryService:
@@ -23,7 +23,13 @@ npm install
 npm start
 ```
 ## Running the tests
-Sample database:
+Sample database by using MongoDB:
+```
+cd ./SampleDB
+```
+```
+python createDb.py
+```
 
 ## Build with
 * [Gradle](https://gradle.org/) - Dependency Management
