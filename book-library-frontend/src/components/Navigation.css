@@ -1,0 +1,29 @@
+.active {
+  color: goldenrod;
+  outline: none;
+}
+
+li {
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+  outline: 0;
+}
+
+li:hover {
+  background-color: crimson;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  background-color: brown;
+}
+
+nav ul li {
+  padding: 10px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}

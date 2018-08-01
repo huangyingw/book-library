@@ -1,0 +1,10 @@
+tr.book{
+  background-color: bisque;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+}
+
+p {
+  margin: 10px;
+}
