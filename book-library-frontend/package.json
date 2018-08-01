@@ -13,7 +13,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development --port 4000",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --port 4001",
     "build": "webpack --config ./webpack.config.js --mode production",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Home from './components/Home';
-import Admin from './components/Admin';
+import Home from './scenes/Home/Home';
+import Admin from './scenes/Admin/Admin';
 import Navigation from './components/Navigation';
 
 class App extends Component {
