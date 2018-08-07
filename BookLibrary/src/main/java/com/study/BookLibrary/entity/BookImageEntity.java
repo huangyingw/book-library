@@ -1,13 +1,11 @@
 package com.study.BookLibrary.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "book_image")
 public class BookImageEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -40,5 +38,13 @@ public class BookImageEntity {
 
   public void setImageDataFiles(byte[] imageDataFiles) {
     this.imageDataFiles = imageDataFiles;
+  }
+
+  @Override
+  public String toString() {
+    return "BookImageEntity{" +
+        "id=" + id +
+        ", fileName='" + fileName + '\'' +
+        '}';
   }
 }

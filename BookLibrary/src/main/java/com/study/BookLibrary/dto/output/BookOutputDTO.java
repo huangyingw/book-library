@@ -1,29 +1,18 @@
-package com.study.BookLibrary.entity;
+package com.study.BookLibrary.dto.output;
 
-import javax.persistence.*;
+import com.study.BookLibrary.entity.AuthorEntity;
+import com.study.BookLibrary.entity.CategoryEntity;
 
-@Entity
-@Table(name = "book")
-public class BookEntity {
+public class BookOutputDTO {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String title;
   private String description;
-
-  @ManyToOne
-  @JoinColumn(name = "author_id")
   private AuthorEntity author;
-
-  @ManyToOne
-  @JoinColumn(name = "category_id")
   private CategoryEntity category;
 
-//    @OneToOne
-//    private BookImageEntity bookImage;
+  public BookOutputDTO() {
 
-  public BookEntity() {
   }
 
   public Long getId() {
@@ -64,24 +53,5 @@ public class BookEntity {
 
   public void setCategory(CategoryEntity category) {
     this.category = category;
-  }
-
-//    public BookImageEntity getBookImage() {
-//        return bookImage;
-//    }
-//
-//    public void setBookImage(BookImageEntity bookImage) {
-//        this.bookImage = bookImage;
-//    }
-
-  @Override
-  public String toString() {
-    return "BookEntity{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", description='" + description + '\'' +
-        ", author=" + author +
-        ", category=" + category +
-        '}';
   }
 }

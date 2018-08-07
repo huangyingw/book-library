@@ -1,12 +1,11 @@
 package com.study.BookLibrary.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "category")
 public class CategoryEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -29,5 +28,13 @@ public class CategoryEntity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return "CategoryEntity{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        '}';
   }
 }

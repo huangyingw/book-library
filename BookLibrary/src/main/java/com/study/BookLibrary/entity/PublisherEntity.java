@@ -1,11 +1,9 @@
 package com.study.BookLibrary.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "publisher")
 public class PublisherEntity {
 
   @Id
@@ -30,5 +28,13 @@ public class PublisherEntity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return "PublisherEntity{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        '}';
   }
 }

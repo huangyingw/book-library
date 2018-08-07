@@ -1,8 +1,8 @@
 var webpack = require('webpack');
-var environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+var environment = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 var SERVER_URL = {
-	production: JSON.stringify('http://localhost:8010'),
-	development: JSON.stringify('http://localhost:8010')
+	development: JSON.stringify('http://localhost:8010'),
+	production: JSON.stringify('http://production:8010')
 }
 
 module.exports = {

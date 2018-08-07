@@ -1,6 +1,6 @@
 .active {
   color: goldenrod;
-  outline: none;
+  outline: none 0;
 }
 
 li {

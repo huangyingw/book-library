@@ -1,5 +1,6 @@
 package com.study.BookLibrary.controller;
 
+import com.study.BookLibrary.dto.input.AuthorInputDTO;
 import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.service.AuthorService;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/library/author")
 public class AuthorController {
+
   private AuthorService authorService;
 
   @Autowired
@@ -37,7 +39,7 @@ public class AuthorController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addAuthor(@RequestBody AuthorEntity authorEntity) {
-    authorService.addAuthor(authorEntity);
+  public void addAuthor(@RequestBody AuthorInputDTO authorInputDTO) {
+    authorService.addAuthor(authorInputDTO);
   }
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Home from './scenes/Home/Home';
 import Admin from './scenes/Admin/Admin';
-import Navigation from './components/Navigation';
+import Navigation from './navigation/Navigation';
 
 class App extends Component {
   render() {

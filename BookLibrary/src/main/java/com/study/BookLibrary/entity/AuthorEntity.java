@@ -1,51 +1,50 @@
 package com.study.BookLibrary.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "author")
 public class AuthorEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstName;
-    private String lastName;
 
-    public AuthorEntity() {
-    }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String firstName;
+  private String lastName;
 
-    public Long getId() {
-        return id;
-    }
+  public AuthorEntity() {
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    @Override
-    public String toString() {
-        return "AuthorEntity{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  @Override
+  public String toString() {
+    return "AuthorEntity{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        '}';
+  }
 }

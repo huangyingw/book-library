@@ -12,19 +12,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Slf4j
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(value = {ServiceException.class})
-    protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse;
-        HttpStatus status;
-        if(ex instanceof ServiceException) {
-            bodyOfResponse = ((ServiceException) ex).getMessage();
-            status = ((ServiceException) ex).getStatus();
-            log.warn(bodyOfResponse);
-        } else {
-            bodyOfResponse = ex.getMessage();
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            log.error(bodyOfResponse);
-        }
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), status, request);
+
+  @ExceptionHandler(value = {ServiceException.class})
+  protected ResponseEntity<Object> handleServiceException(RuntimeException ex, WebRequest request) {
+    String bodyOfResponse;
+    HttpStatus status;
+    if (ex instanceof ServiceException) {
+      bodyOfResponse = ((ServiceException) ex).getMessage();
+      status = ((ServiceException) ex).getStatus();
+      log.warn(bodyOfResponse);
+    } else {
+      bodyOfResponse = ex.getMessage();
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+      log.error(bodyOfResponse);
     }
+    return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), status, request);
+  }
 }

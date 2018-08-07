@@ -4,8 +4,10 @@ import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.error.InternalServerErrorException;
 import com.study.BookLibrary.service.BookImageService;
+
 import java.io.IOException;
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/library/book-image")
 public class BookImageController {
+
   private BookImageService bookImageService;
 
   @Autowired
@@ -38,7 +41,7 @@ public class BookImageController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBookImage(@RequestParam(value = "file")MultipartFile file) {
+  public void addBookImage(@RequestParam(value = "file") MultipartFile file) {
     log.debug("My Log: " + file.getOriginalFilename());
     bookImageService.addBookImage(convertToEntity(file));
   }
