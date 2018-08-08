@@ -31,7 +31,7 @@ class Books extends Component {
           <tbody>
             {this.state.allBooks.map(map =>
               <tr key={map.id} className='book'>
-                <td><img src={"data:image/svg+xml;base64," + map.bookImage.imageDataFiles} width='150' height='200' alt='map' /></td>
+                {/* <td><img src={"data:image/svg+xml;base64," + map.bookImage.imageDataFiles} width='150' height='200' alt='map' /></td> */}
                 <td id="description">
                   <p><b>Tytuł:</b> {map.title}</p>
                   <p><b>Opis:</b> {map.description}</p>

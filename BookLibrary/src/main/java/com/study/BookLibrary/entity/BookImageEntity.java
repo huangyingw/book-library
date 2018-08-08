@@ -1,6 +1,7 @@
 package com.study.BookLibrary.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "book_image")
@@ -9,7 +10,12 @@ public class BookImageEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(nullable = false)
+  @Size(min = 5)
   private String fileName;
+
+  @Column(nullable = false)
   @Lob
   private byte[] imageDataFiles;
 

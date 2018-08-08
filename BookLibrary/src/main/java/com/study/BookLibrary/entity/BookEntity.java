@@ -25,6 +25,10 @@ public class BookEntity {
   @JoinColumn(name = "category_id")
   private CategoryEntity category;
 
+  @ManyToOne
+  @JoinColumn(name = "publisher_id")
+  private PublisherEntity publisherEntity;
+
   public BookEntity() {
   }
 
@@ -68,6 +72,14 @@ public class BookEntity {
     this.category = category;
   }
 
+  public PublisherEntity getPublisherEntity() {
+    return publisherEntity;
+  }
+
+  public void setPublisherEntity(PublisherEntity publisherEntity) {
+    this.publisherEntity = publisherEntity;
+  }
+
   @Override
   public String toString() {
     return "BookEntity{" +
@@ -76,6 +88,7 @@ public class BookEntity {
         ", description='" + description + '\'' +
         ", author=" + author +
         ", category=" + category +
+        ", publisherEntity=" + publisherEntity +
         '}';
   }
 }

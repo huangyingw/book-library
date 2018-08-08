@@ -2,6 +2,7 @@ package com.study.BookLibrary.dto.output;
 
 import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.entity.CategoryEntity;
+import com.study.BookLibrary.entity.PublisherEntity;
 
 public class BookOutputDTO {
 
@@ -10,6 +11,7 @@ public class BookOutputDTO {
   private String description;
   private AuthorEntity author;
   private CategoryEntity category;
+  private PublisherEntity publisher;
 
   public BookOutputDTO() {
 
@@ -53,5 +55,13 @@ public class BookOutputDTO {
 
   public void setCategory(CategoryEntity category) {
     this.category = category;
+  }
+
+  public PublisherEntity getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(PublisherEntity publisher) {
+    this.publisher = publisher;
   }
 }

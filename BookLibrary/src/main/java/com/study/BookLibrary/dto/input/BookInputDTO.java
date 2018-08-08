@@ -6,6 +6,7 @@ public class BookInputDTO {
   private String description;
   private Long authorId;
   private Long categoryId;
+  private Long publisherId;
 
   public BookInputDTO() {
   }
@@ -40,5 +41,13 @@ public class BookInputDTO {
 
   public void setCategoryId(Long categoryId) {
     this.categoryId = categoryId;
+  }
+
+  public Long getPublisherId() {
+    return publisherId;
+  }
+
+  public void setPublisherId(Long publisherId) {
+    this.publisherId = publisherId;
   }
 }

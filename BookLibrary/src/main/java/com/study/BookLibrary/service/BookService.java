@@ -5,6 +5,7 @@ import com.study.BookLibrary.dto.output.BookOutputDTO;
 import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.CategoryEntity;
+import com.study.BookLibrary.entity.PublisherEntity;
 import com.study.BookLibrary.error.InternalServerErrorException;
 import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.NotFoundException;
@@ -13,6 +14,7 @@ import com.study.BookLibrary.mapper.Mapper;
 import com.study.BookLibrary.repository.AuthorRepository;
 import com.study.BookLibrary.repository.BookRepository;
 
+import com.study.BookLibrary.repository.PublisherRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +28,17 @@ public class BookService {
   private BookRepository bookRepository;
   private AuthorRepository authorRepository;
   private CategoryRepository categoryRepository;
+  private PublisherRepository publisherRepository;
 
   private final Mapper mapper = new Mapper();
 
   @Autowired
   public BookService(BookRepository bookRepository, AuthorRepository authorRepository,
-      CategoryRepository categoryRepository) {
+      CategoryRepository categoryRepository, PublisherRepository publisherRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
     this.categoryRepository = categoryRepository;
+    this.publisherRepository = publisherRepository;
   }
 
   public List<BookOutputDTO> getAllBooks() {
@@ -51,12 +55,15 @@ public class BookService {
   public void addBook(BookInputDTO bookInputDTO) {
     Optional<AuthorEntity> author = authorRepository.findById(bookInputDTO.getAuthorId());
     Optional<CategoryEntity> category = categoryRepository.findById(bookInputDTO.getCategoryId());
-
+    Optional<PublisherEntity> publisher = publisherRepository.findById(bookInputDTO.getPublisherId());
     if(!author.isPresent())
       throw new NotFoundException("Can not create book without author.",
           ServiceErrorCode.NOT_FOUND);
     if(!category.isPresent())
       throw new NotFoundException("Can not create book without category.",
+          ServiceErrorCode.NOT_FOUND);
+    if(!publisher.isPresent())
+      throw new NotFoundException("Can not create book without publisher.",
           ServiceErrorCode.NOT_FOUND);
     Optional<BookEntity> book = bookRepository
         .findByTitleAndAuthorAndCategory(bookInputDTO.getTitle(), author.get(), category.get());
