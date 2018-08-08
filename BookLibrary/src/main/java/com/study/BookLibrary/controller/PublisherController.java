@@ -1,5 +1,7 @@
 package com.study.BookLibrary.controller;
 
+import com.study.BookLibrary.dto.input.PublisherInputDTO;
+import com.study.BookLibrary.dto.output.PublisherOutputDTO;
 import com.study.BookLibrary.entity.PublisherEntity;
 import com.study.BookLibrary.service.PublisherService;
 
@@ -24,18 +26,18 @@ public class PublisherController {
   }
 
   @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<PublisherEntity>> getAllPublisher() {
+  public ResponseEntity<List<PublisherOutputDTO>> getAllPublisher() {
     return new ResponseEntity<>(publisherService.getAllPublisher(), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<PublisherEntity> getPublisherById(@PathVariable Long id) {
+  public ResponseEntity<PublisherOutputDTO> getPublisherById(@PathVariable Long id) {
     return new ResponseEntity<>(publisherService.getPublisherById(id), HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBook(@RequestBody PublisherEntity publisherEntity) {
-    publisherService.addPublisher(publisherEntity);
+  public void addBook(@RequestBody PublisherInputDTO publisherInputDTO) {
+    publisherService.addPublisher(publisherInputDTO);
   }
 }

@@ -1,15 +1,17 @@
 package com.study.BookLibrary.service;
 
 import com.study.BookLibrary.dto.input.AuthorInputDTO;
+import com.study.BookLibrary.dto.output.AuthorOutputDTO;
 import com.study.BookLibrary.entity.AuthorEntity;
-import com.study.BookLibrary.error.InternalServerErrorException;
+import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.NotFoundException;
+import com.study.BookLibrary.error.ServiceErrorCode;
+import com.study.BookLibrary.mapper.Mapper;
 import com.study.BookLibrary.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,34 +20,32 @@ public class AuthorService {
 
   private AuthorRepository authorRepository;
 
-  @Autowired
-  private ModelMapper modelMapper;
+  private final Mapper mapper = new Mapper();
 
   @Autowired
   public AuthorService(AuthorRepository authorRepository) {
     this.authorRepository = authorRepository;
   }
 
-  public List<AuthorEntity> getAllAuthors() {
-    return authorRepository.findAll();
+  public List<AuthorOutputDTO> getAllAuthors() {
+    return mapper.mapToList(authorRepository.findAll(), AuthorOutputDTO.class);
   }
 
-  public AuthorEntity getAuthorById(Long id) {
-    return authorRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("Author with id=" + id + " is not exist."));
+  public AuthorOutputDTO getAuthorById(Long id) {
+    AuthorEntity authorEntity = authorRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Author with id=" + id + " is not exist.",
+            ServiceErrorCode.NOT_FOUND));
+    return mapper.map(authorEntity, AuthorOutputDTO.class);
   }
 
   public void addAuthor(AuthorInputDTO authorInputDTO) {
     Optional<AuthorEntity> author = authorRepository
         .findByFirstNameAndLastName(authorInputDTO.getFirstName(), authorInputDTO.getLastName());
     if (!author.isPresent()) {
-      authorRepository.save(convertToEntity(authorInputDTO));
+      authorRepository.save(mapper.map(authorInputDTO, AuthorEntity.class));
     } else {
-      throw new InternalServerErrorException("Can not create book, it is already exist.");
+      throw new ConflictException("Can not create author, it is already exist.",
+          ServiceErrorCode.ALREADY_EXIST);
     }
-  }
-
-  private AuthorEntity convertToEntity(AuthorInputDTO authorInputDTO) {
-    return modelMapper.map(authorInputDTO, AuthorEntity.class);
   }
 }

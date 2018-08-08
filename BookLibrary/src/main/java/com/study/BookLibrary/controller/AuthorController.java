@@ -1,6 +1,7 @@
 package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.input.AuthorInputDTO;
+import com.study.BookLibrary.dto.output.AuthorOutputDTO;
 import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.service.AuthorService;
 
@@ -28,12 +29,12 @@ public class AuthorController {
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<AuthorEntity>> getAllAuthors() {
+  public ResponseEntity<List<AuthorOutputDTO>> getAllAuthors() {
     return new ResponseEntity<>(authorService.getAllAuthors(), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AuthorEntity> getAuthorById(@PathVariable Long id) {
+  public ResponseEntity<AuthorOutputDTO> getAuthorById(@PathVariable Long id) {
     return new ResponseEntity<>(authorService.getAuthorById(id), HttpStatus.OK);
   }
 

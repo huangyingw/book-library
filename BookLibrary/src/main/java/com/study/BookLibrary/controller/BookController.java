@@ -2,7 +2,6 @@ package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.input.BookInputDTO;
 import com.study.BookLibrary.dto.output.BookOutputDTO;
-import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.service.BookService;
 
 import java.util.List;

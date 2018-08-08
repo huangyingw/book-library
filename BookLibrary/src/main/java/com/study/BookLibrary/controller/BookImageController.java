@@ -3,6 +3,7 @@ package com.study.BookLibrary.controller;
 import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.error.InternalServerErrorException;
+import com.study.BookLibrary.error.ServiceErrorCode;
 import com.study.BookLibrary.service.BookImageService;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class BookImageController {
     try {
       entity.setImageDataFiles(file.getBytes());
     } catch (IOException e) {
-      throw new InternalServerErrorException(e.getMessage());
+      throw new InternalServerErrorException(e.getMessage(), ServiceErrorCode.CONNECTION_FAILED);
     }
     entity.setFileName(file.getOriginalFilename());
     return entity;

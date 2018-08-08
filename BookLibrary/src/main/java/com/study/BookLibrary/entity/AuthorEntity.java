@@ -1,6 +1,7 @@
 package com.study.BookLibrary.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "author")
@@ -9,7 +10,11 @@ public class AuthorEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(nullable = false)
+  @Size(min = 1)
   private String firstName;
+  @Column(nullable = false)
+  @Size(min = 1)
   private String lastName;
 
   public AuthorEntity() {

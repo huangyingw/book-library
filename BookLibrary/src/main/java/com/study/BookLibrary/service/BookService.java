@@ -6,16 +6,17 @@ import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.CategoryEntity;
 import com.study.BookLibrary.error.InternalServerErrorException;
+import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.NotFoundException;
+import com.study.BookLibrary.error.ServiceErrorCode;
+import com.study.BookLibrary.mapper.Mapper;
 import com.study.BookLibrary.repository.AuthorRepository;
 import com.study.BookLibrary.repository.BookRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import com.study.BookLibrary.repository.CategoryRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,7 @@ public class BookService {
   private AuthorRepository authorRepository;
   private CategoryRepository categoryRepository;
 
-  @Autowired
-  private ModelMapper modelMapper;
+  private final Mapper mapper = new Mapper();
 
   @Autowired
   public BookService(BookRepository bookRepository, AuthorRepository authorRepository,
@@ -38,13 +38,14 @@ public class BookService {
   }
 
   public List<BookOutputDTO> getAllBooks() {
-    return convertToListDto(bookRepository.findAll());
+    return mapper.mapToList(bookRepository.findAll(), BookOutputDTO.class);
   }
 
   public BookOutputDTO getBookById(Long id) {
     BookEntity bookEntity = bookRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("Book with id=" + id + " is not exist."));
-    return convertToDto(bookEntity);
+        .orElseThrow(() -> new NotFoundException("Book with id=" + id + " is not exist.",
+            ServiceErrorCode.NOT_FOUND));
+    return mapper.map(bookEntity, BookOutputDTO.class);
   }
 
   public void addBook(BookInputDTO bookInputDTO) {
@@ -55,35 +56,21 @@ public class BookService {
         Optional<BookEntity> book = bookRepository
             .findByTitleAndAuthorAndCategory(bookInputDTO.getTitle(), author.get(), category.get());
         if (!book.isPresent()) {
-          BookEntity bookEntity = convertToEntity(bookInputDTO);
+          BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
           bookEntity.setAuthor(author.get());
           bookEntity.setCategory(category.get());
-          System.out.println(category.get());
           bookRepository.save(bookEntity);
         } else {
-          //TODO Specify new Exception
-          throw new InternalServerErrorException("Can not create book, it is already exist.");
+          throw new ConflictException("Can not create book, it is already exist.",
+              ServiceErrorCode.ALREADY_EXIST);
         }
       } else {
-        //TODO Specify new Exception
-        throw new InternalServerErrorException("Can not create book without category.");
+        throw new NotFoundException("Can not create book without category.",
+            ServiceErrorCode.NOT_FOUND);
       }
     } else {
-      //TODO Specify new Exception
-      throw new InternalServerErrorException("Can not create book without author.");
+      throw new NotFoundException("Can not create book without author.",
+          ServiceErrorCode.NOT_FOUND);
     }
-  }
-
-  private BookEntity convertToEntity(BookInputDTO bookInputDTO) {
-    return modelMapper.map(bookInputDTO, BookEntity.class);
-  }
-
-  private BookOutputDTO convertToDto(BookEntity bookEntity) {
-    return modelMapper.map(bookEntity, BookOutputDTO.class);
-  }
-
-  private List<BookOutputDTO> convertToListDto(List<BookEntity> books) {
-    return books.stream().map(entity -> modelMapper.map(entity, BookOutputDTO.class))
-        .collect(Collectors.toList());
   }
 }

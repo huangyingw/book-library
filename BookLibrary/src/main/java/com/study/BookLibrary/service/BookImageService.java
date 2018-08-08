@@ -2,6 +2,7 @@ package com.study.BookLibrary.service;
 
 import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.error.NotFoundException;
+import com.study.BookLibrary.error.ServiceErrorCode;
 import com.study.BookLibrary.repository.BookImageRepository;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class BookImageService {
 
   public BookImageEntity getBookImageById(Long id) {
     return bookImageRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("Book image with id=" + id + " is not exist."));
+        .orElseThrow(() -> new NotFoundException("Book image with id=" + id + " is not exist.",
+            ServiceErrorCode.NOT_FOUND));
   }
 
   public void addBookImage(BookImageEntity bookImageEntity) {

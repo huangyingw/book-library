@@ -1,5 +1,7 @@
 package com.study.BookLibrary.controller;
 
+import com.study.BookLibrary.dto.input.CategoryInputDTO;
+import com.study.BookLibrary.dto.output.CategoryOutputDTO;
 import com.study.BookLibrary.entity.CategoryEntity;
 import com.study.BookLibrary.service.CategoryService;
 
@@ -24,18 +26,18 @@ public class CategoryController {
   }
 
   @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<CategoryEntity>> getAllCategory() {
+  public ResponseEntity<List<CategoryOutputDTO>> getAllCategory() {
     return new ResponseEntity<>(categoryService.getAllCategory(), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long id) {
+  public ResponseEntity<CategoryOutputDTO> getCategoryById(@PathVariable Long id) {
     return new ResponseEntity<>(categoryService.getCategoryById(id), HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBook(@RequestBody CategoryEntity categoryEntity) {
-    categoryService.addCategory(categoryEntity);
+  public void addBook(@RequestBody CategoryInputDTO categoryInputDTO) {
+    categoryService.addCategory(categoryInputDTO);
   }
 }
