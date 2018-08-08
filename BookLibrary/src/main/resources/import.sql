@@ -31,6 +31,13 @@ INSERT INTO book(id, title, description, author_id, category_id, publisher_id) V
 INSERT INTO book(id, title, description, author_id, category_id, publisher_id) VALUES(4, 'To', 'Powieść Stephena Kinga wydana w 1986 roku', 4, 4, 4);
 INSERT INTO book(id, title, description, author_id, category_id, publisher_id) VALUES(5, 'Malowany czlowiek', 'Pierwszy z pięciu tomów cyklu demonicznego amerykańskiego pisarza Petera V. Bretta', 5, 1, 3);
 
+
+SELECT SETVAL('author_id_seq', (SELECT MAX(id) + 1 FROM author), FALSE);
+SELECT SETVAL('category_id_seq', (SELECT MAX(id) + 1 FROM category), FALSE);
+SELECT SETVAL('publisher_id_seq', (SELECT MAX(id) + 1 FROM publisher), FALSE);
+SELECT SETVAL('book_id_seq', (SELECT MAX(id) + 1 FROM book), FALSE);
+
+
 --SELECT b.*, a.*, c.*, p.*
 --FROM book b, author a, category c, publisher p
 --WHERE b.author_id = a.id AND b.category_id = c.id AND b.publisher_id = p.id;

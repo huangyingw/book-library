@@ -55,21 +55,26 @@ public class BookService {
   public void addBook(BookInputDTO bookInputDTO) {
     Optional<AuthorEntity> author = authorRepository.findById(bookInputDTO.getAuthorId());
     Optional<CategoryEntity> category = categoryRepository.findById(bookInputDTO.getCategoryId());
-    Optional<PublisherEntity> publisher = publisherRepository.findById(bookInputDTO.getPublisherId());
-    if(!author.isPresent())
+    Optional<PublisherEntity> publisher = publisherRepository
+        .findById(bookInputDTO.getPublisherId());
+    if (!author.isPresent()) {
       throw new NotFoundException("Can not create book without author.",
           ServiceErrorCode.NOT_FOUND);
-    if(!category.isPresent())
+    }
+    if (!category.isPresent()) {
       throw new NotFoundException("Can not create book without category.",
           ServiceErrorCode.NOT_FOUND);
-    if(!publisher.isPresent())
+    }
+    if (!publisher.isPresent()) {
       throw new NotFoundException("Can not create book without publisher.",
           ServiceErrorCode.NOT_FOUND);
+    }
     Optional<BookEntity> book = bookRepository
         .findByTitleAndAuthorAndCategory(bookInputDTO.getTitle(), author.get(), category.get());
-    if (book.isPresent())
+    if (book.isPresent()) {
       throw new ConflictException("Can not create book, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
+    }
 
     BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
     bookEntity.setAuthor(author.get());

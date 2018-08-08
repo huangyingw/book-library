@@ -2,9 +2,18 @@ package com.study.BookLibrary.dto.output;
 
 public class CategoryOutputDTO {
 
+  private Long id;
   private String name;
 
   public CategoryOutputDTO() {
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getName() {

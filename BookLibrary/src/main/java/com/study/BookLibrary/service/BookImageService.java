@@ -46,14 +46,17 @@ public class BookImageService {
 
   public void addBookImage(MultipartFile imageFile, String bookId) {
     Optional<BookEntity> book = bookRepository.findById(Long.parseLong(bookId));
-    if(!book.isPresent())
-      throw new NotFoundException("Can not create book_image without book.", ServiceErrorCode.NOT_FOUND);
+    if (!book.isPresent()) {
+      throw new NotFoundException("Can not create book_image without book.",
+          ServiceErrorCode.NOT_FOUND);
+    }
 
     Optional<BookImageEntity> bookImage = bookImageRepository
         .findByFileName(imageFile.getOriginalFilename());
-    if(bookImage.isPresent())
+    if (bookImage.isPresent()) {
       throw new ConflictException("Can not create book_image, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
+    }
 
     BookImageEntity bookImageEntity = new BookImageEntity();
     try {
