@@ -13,8 +13,8 @@ public class BookImageEntity {
   @Lob
   private byte[] imageDataFiles;
 
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "book_id", nullable = false)
+  @OneToOne
+  @JoinColumn(name = "book_id")
   private BookEntity book;
 
   public BookImageEntity() {

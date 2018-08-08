@@ -1,5 +1,6 @@
 package com.study.BookLibrary.controller;
 
+import com.study.BookLibrary.dto.output.BookImageOutputDTO;
 import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.service.BookImageService;
 
@@ -27,12 +28,12 @@ public class BookImageController {
   }
 
   @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<BookImageEntity>> getAllBookImage() {
+  public ResponseEntity<List<BookImageOutputDTO>> getAllBookImage() {
     return new ResponseEntity<>(bookImageService.getAllBookImage(), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<BookImageEntity> getBookImageById(@PathVariable Long id) {
+  public ResponseEntity<BookImageOutputDTO> getBookImageById(@PathVariable Long id) {
     return new ResponseEntity<>(bookImageService.getBookImageById(id), HttpStatus.OK);
   }
 

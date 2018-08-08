@@ -51,26 +51,22 @@ public class BookService {
   public void addBook(BookInputDTO bookInputDTO) {
     Optional<AuthorEntity> author = authorRepository.findById(bookInputDTO.getAuthorId());
     Optional<CategoryEntity> category = categoryRepository.findById(bookInputDTO.getCategoryId());
-    if (author.isPresent()) {
-      if (category.isPresent()) {
-        Optional<BookEntity> book = bookRepository
-            .findByTitleAndAuthorAndCategory(bookInputDTO.getTitle(), author.get(), category.get());
-        if (!book.isPresent()) {
-          BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
-          bookEntity.setAuthor(author.get());
-          bookEntity.setCategory(category.get());
-          bookRepository.save(bookEntity);
-        } else {
-          throw new ConflictException("Can not create book, it is already exist.",
-              ServiceErrorCode.ALREADY_EXIST);
-        }
-      } else {
-        throw new NotFoundException("Can not create book without category.",
-            ServiceErrorCode.NOT_FOUND);
-      }
-    } else {
+
+    if(!author.isPresent())
       throw new NotFoundException("Can not create book without author.",
           ServiceErrorCode.NOT_FOUND);
-    }
+    if(!category.isPresent())
+      throw new NotFoundException("Can not create book without category.",
+          ServiceErrorCode.NOT_FOUND);
+    Optional<BookEntity> book = bookRepository
+        .findByTitleAndAuthorAndCategory(bookInputDTO.getTitle(), author.get(), category.get());
+    if (book.isPresent())
+      throw new ConflictException("Can not create book, it is already exist.",
+          ServiceErrorCode.ALREADY_EXIST);
+
+    BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
+    bookEntity.setAuthor(author.get());
+    bookEntity.setCategory(category.get());
+    bookRepository.save(bookEntity);
   }
 }
