@@ -10,9 +10,11 @@ public class BookEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(nullable = false)
   @Size(min = 1)
   private String title;
+
   private String description;
 
   @ManyToOne
@@ -23,8 +25,8 @@ public class BookEntity {
   @JoinColumn(name = "category_id")
   private CategoryEntity category;
 
-//    @OneToOne
-//    private BookImageEntity bookImage;
+  @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "book")
+  private BookImageEntity bookImage;
 
   public BookEntity() {
   }
@@ -69,13 +71,13 @@ public class BookEntity {
     this.category = category;
   }
 
-//    public BookImageEntity getBookImage() {
-//        return bookImage;
-//    }
-//
-//    public void setBookImage(BookImageEntity bookImage) {
-//        this.bookImage = bookImage;
-//    }
+  public BookImageEntity getBookImage() {
+    return bookImage;
+  }
+
+  public void setBookImage(BookImageEntity bookImage) {
+    this.bookImage = bookImage;
+  }
 
   @Override
   public String toString() {

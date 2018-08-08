@@ -13,6 +13,10 @@ public class BookImageEntity {
   @Lob
   private byte[] imageDataFiles;
 
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "book_id", nullable = false)
+  private BookEntity book;
+
   public BookImageEntity() {
   }
 
@@ -38,6 +42,14 @@ public class BookImageEntity {
 
   public void setImageDataFiles(byte[] imageDataFiles) {
     this.imageDataFiles = imageDataFiles;
+  }
+
+  public BookEntity getBook() {
+    return book;
+  }
+
+  public void setBook(BookEntity book) {
+    this.book = book;
   }
 
   @Override

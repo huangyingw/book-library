@@ -1,12 +1,8 @@
 package com.study.BookLibrary.controller;
 
-import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.BookImageEntity;
-import com.study.BookLibrary.error.InternalServerErrorException;
-import com.study.BookLibrary.error.ServiceErrorCode;
 import com.study.BookLibrary.service.BookImageService;
 
-import java.io.IOException;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,19 +38,8 @@ public class BookImageController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBookImage(@RequestParam(value = "file") MultipartFile file) {
-    log.debug("My Log: " + file.getOriginalFilename());
-    bookImageService.addBookImage(convertToEntity(file));
-  }
-
-  private BookImageEntity convertToEntity(MultipartFile file) {
-    BookImageEntity entity = new BookImageEntity();
-    try {
-      entity.setImageDataFiles(file.getBytes());
-    } catch (IOException e) {
-      throw new InternalServerErrorException(e.getMessage(), ServiceErrorCode.CONNECTION_FAILED);
-    }
-    entity.setFileName(file.getOriginalFilename());
-    return entity;
+  public void addBookImage(@RequestParam(value = "imageFile") MultipartFile imageFile,
+      @RequestPart(value = "bookId") String bookId) {
+    bookImageService.addBookImage(imageFile, bookId);
   }
 }

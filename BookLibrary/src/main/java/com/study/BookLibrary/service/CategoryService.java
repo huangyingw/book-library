@@ -40,11 +40,10 @@ public class CategoryService {
 
   public void addCategory(CategoryInputDTO categoryInputDTO) {
     Optional<CategoryEntity> category = categoryRepository.findByName(categoryInputDTO.getName());
-    if (!category.isPresent()) {
-      categoryRepository.save(mapper.map(categoryInputDTO, CategoryEntity.class));
-    } else {
+    if (category.isPresent()) {
       throw new ConflictException("Can not create category, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
+    categoryRepository.save(mapper.map(categoryInputDTO, CategoryEntity.class));
   }
 }

@@ -41,11 +41,10 @@ public class PublisherService {
   public void addPublisher(PublisherInputDTO publisherInputDTO) {
     Optional<PublisherEntity> publisher = publisherRepository
         .findByName(publisherInputDTO.getName());
-    if (!publisher.isPresent()) {
-      publisherRepository.save(mapper.map(publisherInputDTO, PublisherEntity.class));
-    } else {
+    if (publisher.isPresent()) {
       throw new ConflictException("Can not create publisher, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
+    publisherRepository.save(mapper.map(publisherInputDTO, PublisherEntity.class));
   }
 }

@@ -10,6 +10,7 @@ public class PublisherEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(nullable = false)
   @Size(min = 1)
   private String name;

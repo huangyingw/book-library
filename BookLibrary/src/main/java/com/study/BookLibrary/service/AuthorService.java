@@ -41,11 +41,10 @@ public class AuthorService {
   public void addAuthor(AuthorInputDTO authorInputDTO) {
     Optional<AuthorEntity> author = authorRepository
         .findByFirstNameAndLastName(authorInputDTO.getFirstName(), authorInputDTO.getLastName());
-    if (!author.isPresent()) {
-      authorRepository.save(mapper.map(authorInputDTO, AuthorEntity.class));
-    } else {
+    if (author.isPresent()) {
       throw new ConflictException("Can not create author, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
+    authorRepository.save(mapper.map(authorInputDTO, AuthorEntity.class));
   }
 }
