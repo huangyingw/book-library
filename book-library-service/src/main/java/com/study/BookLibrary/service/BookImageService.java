@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.List;
 
 import java.util.Optional;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +25,6 @@ public class BookImageService {
   private BookImageRepository bookImageRepository;
   private BookRepository bookRepository;
 
-  private final Mapper mapper = new Mapper();
-
   @Autowired
   public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository) {
     this.bookImageRepository = bookImageRepository;
@@ -35,14 +32,14 @@ public class BookImageService {
   }
 
   public List<BookImageOutputDTO> getAllBookImage() {
-    return mapper.mapToList(bookImageRepository.findAll(), BookImageOutputDTO.class);
+    return Mapper.mapToList(bookImageRepository.findAll(), BookImageOutputDTO.class);
   }
 
   public BookImageOutputDTO getBookImageById(Long id) {
     BookImageEntity bookImageEntity = bookImageRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Book image with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return mapper.map(bookImageEntity, BookImageOutputDTO.class);
+    return Mapper.map(bookImageEntity, BookImageOutputDTO.class);
   }
 
   public void saveBookImage(MultipartFile imageFile, String bookId) {

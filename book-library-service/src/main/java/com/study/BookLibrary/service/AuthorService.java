@@ -20,22 +20,20 @@ public class AuthorService {
 
   private AuthorRepository authorRepository;
 
-  private final Mapper mapper = new Mapper();
-
   @Autowired
   public AuthorService(AuthorRepository authorRepository) {
     this.authorRepository = authorRepository;
   }
 
   public List<AuthorOutputDTO> getAllAuthors() {
-    return mapper.mapToList(authorRepository.findAll(), AuthorOutputDTO.class);
+    return Mapper.mapToList(authorRepository.findAll(), AuthorOutputDTO.class);
   }
 
   public AuthorOutputDTO getAuthorById(Long id) {
     AuthorEntity authorEntity = authorRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Author with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return mapper.map(authorEntity, AuthorOutputDTO.class);
+    return Mapper.map(authorEntity, AuthorOutputDTO.class);
   }
 
   public void saveAuthor(AuthorInputDTO authorInputDTO) {
@@ -45,7 +43,7 @@ public class AuthorService {
       throw new ConflictException("Can not create author, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
-    authorRepository.save(mapper.map(authorInputDTO, AuthorEntity.class));
+    authorRepository.save(Mapper.map(authorInputDTO, AuthorEntity.class));
   }
 
   public void modifyAuthor(Long id, AuthorInputDTO authorInputDTO) {
@@ -53,7 +51,7 @@ public class AuthorService {
     if(!author.isPresent())
       throw new NotFoundException("Can not modify non-existing author.", ServiceErrorCode.NOT_FOUND);
 
-    mapper.map(authorInputDTO, author.get());
+    Mapper.map(authorInputDTO, author.get());
     authorRepository.save(author.get());
   }
 

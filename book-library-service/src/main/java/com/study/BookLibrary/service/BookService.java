@@ -6,7 +6,6 @@ import com.study.BookLibrary.entity.AuthorEntity;
 import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.CategoryEntity;
 import com.study.BookLibrary.entity.PublisherEntity;
-import com.study.BookLibrary.error.InternalServerErrorException;
 import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.NotFoundException;
 import com.study.BookLibrary.error.ServiceErrorCode;
@@ -30,8 +29,6 @@ public class BookService {
   private CategoryRepository categoryRepository;
   private PublisherRepository publisherRepository;
 
-  private final Mapper mapper = new Mapper();
-
   @Autowired
   public BookService(BookRepository bookRepository, AuthorRepository authorRepository,
       CategoryRepository categoryRepository, PublisherRepository publisherRepository) {
@@ -42,14 +39,14 @@ public class BookService {
   }
 
   public List<BookOutputDTO> getAllBooks() {
-    return mapper.mapToList(bookRepository.findAll(), BookOutputDTO.class);
+    return Mapper.mapToList(bookRepository.findAll(), BookOutputDTO.class);
   }
 
   public BookOutputDTO getBookById(Long id) {
     BookEntity bookEntity = bookRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Book with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return mapper.map(bookEntity, BookOutputDTO.class);
+    return Mapper.map(bookEntity, BookOutputDTO.class);
   }
 
   public void saveBook(BookInputDTO bookInputDTO) {
@@ -76,7 +73,7 @@ public class BookService {
           ServiceErrorCode.ALREADY_EXIST);
     }
 
-    BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
+    BookEntity bookEntity = Mapper.map(bookInputDTO, BookEntity.class);
     bookEntity.setAuthor(author.get());
     bookEntity.setCategory(category.get());
     bookEntity.setPublisher(publisher.get());
@@ -98,7 +95,7 @@ public class BookService {
     if(!publisher.isPresent())
       throw new NotFoundException("Can not modify book without publisher.", ServiceErrorCode.NOT_FOUND);
 
-    mapper.map(bookInputDTO, book.get());
+    Mapper.map(bookInputDTO, book.get());
     book.get().setAuthor(author.get());
     book.get().setCategory(category.get());
     book.get().setPublisher(publisher.get());
