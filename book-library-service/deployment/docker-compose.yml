@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  dbPostgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: booklibrary
+    ports:
+      - "4040:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+#  book-library-service:
+#    image:  book-library-service
+#    container_name: book-library-service
+#    ports:
+#      - "8082:8010"
+#    restart: on-failure
