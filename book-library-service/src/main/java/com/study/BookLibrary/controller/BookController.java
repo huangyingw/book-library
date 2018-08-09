@@ -24,19 +24,30 @@ public class BookController {
     this.bookService = bookService;
   }
 
-  @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<BookOutputDTO>> getAllBooks() {
     return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BookOutputDTO> getBookById(@PathVariable Long id) {
     return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
   }
 
-  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public void saveBook(@RequestBody BookInputDTO bookInputDTO) {
     bookService.saveBook(bookInputDTO);
+  }
+
+  @PutMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void modifyBook(@PathVariable Long id, @RequestBody BookInputDTO bookInputDTO) {
+    bookService.modifyBook(id, bookInputDTO);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  public void deleteBook(@PathVariable Long id) {
+    bookService.deleteBook(id);
   }
 }
