@@ -38,12 +38,27 @@ public class CategoryService {
     return mapper.map(categoryEntity, CategoryOutputDTO.class);
   }
 
-  public void addCategory(CategoryInputDTO categoryInputDTO) {
+  public void saveCategory(CategoryInputDTO categoryInputDTO) {
     Optional<CategoryEntity> category = categoryRepository.findByName(categoryInputDTO.getName());
     if (category.isPresent()) {
       throw new ConflictException("Can not create category, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
     categoryRepository.save(mapper.map(categoryInputDTO, CategoryEntity.class));
+  }
+
+  public void modifyCategory(Long id, CategoryInputDTO categoryInputDTO) {
+    Optional<CategoryEntity> category = categoryRepository.findById(id);
+    if(!category.isPresent())
+      throw new NotFoundException("Can not modify non-existing category.", ServiceErrorCode.NOT_FOUND);
+
+    mapper.map(categoryInputDTO, category.get());
+    categoryRepository.save(category.get());
+  }
+
+  public void deleteCategory(Long id) {
+    if(!categoryRepository.existsById(id))
+      throw new NotFoundException("Can not delete non-existing category.", ServiceErrorCode.NOT_FOUND);
+    categoryRepository.deleteById(id);
   }
 }

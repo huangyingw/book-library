@@ -17,7 +17,7 @@ public class BookEntity {
 
   private String description;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "author_id")
   private AuthorEntity author;
 
@@ -27,7 +27,7 @@ public class BookEntity {
 
   @ManyToOne
   @JoinColumn(name = "publisher_id")
-  private PublisherEntity publisherEntity;
+  private PublisherEntity publisher;
 
   public BookEntity() {
   }
@@ -72,12 +72,12 @@ public class BookEntity {
     this.category = category;
   }
 
-  public PublisherEntity getPublisherEntity() {
-    return publisherEntity;
+  public PublisherEntity getPublisher() {
+    return publisher;
   }
 
-  public void setPublisherEntity(PublisherEntity publisherEntity) {
-    this.publisherEntity = publisherEntity;
+  public void setPublisher(PublisherEntity publisher) {
+    this.publisher = publisher;
   }
 
   @Override
@@ -88,7 +88,7 @@ public class BookEntity {
         ", description='" + description + '\'' +
         ", author=" + author +
         ", category=" + category +
-        ", publisherEntity=" + publisherEntity +
+        ", publisher=" + publisher +
         '}';
   }
 }

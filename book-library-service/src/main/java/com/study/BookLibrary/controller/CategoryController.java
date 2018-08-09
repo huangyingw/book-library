@@ -2,7 +2,6 @@ package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.input.CategoryInputDTO;
 import com.study.BookLibrary.dto.output.CategoryOutputDTO;
-import com.study.BookLibrary.entity.CategoryEntity;
 import com.study.BookLibrary.service.CategoryService;
 
 import java.util.List;
@@ -25,19 +24,31 @@ public class CategoryController {
     this.categoryService = categoryService;
   }
 
-  @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<CategoryOutputDTO>> getAllCategory() {
     return new ResponseEntity<>(categoryService.getAllCategory(), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<CategoryOutputDTO> getCategoryById(@PathVariable Long id) {
     return new ResponseEntity<>(categoryService.getCategoryById(id), HttpStatus.OK);
   }
 
-  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBook(@RequestBody CategoryInputDTO categoryInputDTO) {
-    categoryService.addCategory(categoryInputDTO);
+  public void saveCategory(@RequestBody CategoryInputDTO categoryInputDTO) {
+    categoryService.saveCategory(categoryInputDTO);
+  }
+
+  @PutMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void modifyCategory(@PathVariable Long id, @RequestBody CategoryInputDTO categoryInputDTO) {
+    categoryService.modifyCategory(id, categoryInputDTO);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteCategory(@PathVariable Long id) {
+    categoryService.deleteCategory(id);
   }
 }

@@ -38,7 +38,7 @@ public class AuthorService {
     return mapper.map(authorEntity, AuthorOutputDTO.class);
   }
 
-  public void addAuthor(AuthorInputDTO authorInputDTO) {
+  public void saveAuthor(AuthorInputDTO authorInputDTO) {
     Optional<AuthorEntity> author = authorRepository
         .findByFirstNameAndLastName(authorInputDTO.getFirstName(), authorInputDTO.getLastName());
     if (author.isPresent()) {
@@ -46,5 +46,20 @@ public class AuthorService {
           ServiceErrorCode.ALREADY_EXIST);
     }
     authorRepository.save(mapper.map(authorInputDTO, AuthorEntity.class));
+  }
+
+  public void modifyAuthor(Long id, AuthorInputDTO authorInputDTO) {
+    Optional<AuthorEntity> author = authorRepository.findById(id);
+    if(!author.isPresent())
+      throw new NotFoundException("Can not modify non-existing author.", ServiceErrorCode.NOT_FOUND);
+
+    mapper.map(authorInputDTO, author.get());
+    authorRepository.save(author.get());
+  }
+
+  public void deleteAuthor(Long id) {
+    if(!authorRepository.existsById(id))
+      throw new NotFoundException("Can not delete non-existing author.", ServiceErrorCode.NOT_FOUND);
+    authorRepository.deleteById(id);
   }
 }

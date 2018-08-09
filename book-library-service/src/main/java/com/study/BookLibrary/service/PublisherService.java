@@ -38,7 +38,7 @@ public class PublisherService {
     return mapper.map(publisherEntity, PublisherOutputDTO.class);
   }
 
-  public void addPublisher(PublisherInputDTO publisherInputDTO) {
+  public void savePublisher(PublisherInputDTO publisherInputDTO) {
     Optional<PublisherEntity> publisher = publisherRepository
         .findByName(publisherInputDTO.getName());
     if (publisher.isPresent()) {
@@ -46,5 +46,20 @@ public class PublisherService {
           ServiceErrorCode.ALREADY_EXIST);
     }
     publisherRepository.save(mapper.map(publisherInputDTO, PublisherEntity.class));
+  }
+
+  public void modifyPublisher(Long id, PublisherInputDTO publisherInputDTO) {
+    Optional<PublisherEntity> publisher = publisherRepository.findById(id);
+    if(!publisher.isPresent())
+      throw new NotFoundException("Can not modify non-existing publisher.", ServiceErrorCode.NOT_FOUND);
+
+    mapper.map(publisherInputDTO, publisher.get());
+    publisherRepository.save(publisher.get());
+  }
+
+  public void deletePublisher(Long id) {
+    if(!publisherRepository.existsById(id))
+      throw new NotFoundException("Can not delete non-existing publisher.", ServiceErrorCode.NOT_FOUND);
+    publisherRepository.deleteById(id);
   }
 }

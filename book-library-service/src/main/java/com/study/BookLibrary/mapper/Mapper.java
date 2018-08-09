@@ -17,8 +17,13 @@ public final class Mapper {
     return modelMapper.map(source, outClass);
   }
 
+  public static <D, T> void map(T source, D destination) {
+    modelMapper.map(source, destination);
+  }
+
   public static <D, T> List<D> mapToList(List<T> sources, Class<D> outClass) {
     return sources.stream().map(source -> map(source, outClass))
         .collect(Collectors.toList());
   }
+
 }

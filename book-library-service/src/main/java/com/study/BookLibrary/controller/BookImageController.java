@@ -1,7 +1,6 @@
 package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.output.BookImageOutputDTO;
-import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.service.BookImageService;
 
 import java.util.List;
@@ -27,20 +26,32 @@ public class BookImageController {
     this.bookImageService = bookImageService;
   }
 
-  @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<BookImageOutputDTO>> getAllBookImage() {
     return new ResponseEntity<>(bookImageService.getAllBookImage(), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<BookImageOutputDTO> getBookImageById(@PathVariable Long id) {
     return new ResponseEntity<>(bookImageService.getBookImageById(id), HttpStatus.OK);
   }
 
-  @RequestMapping(method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBookImage(@RequestParam(value = "imageFile") MultipartFile imageFile,
+  public void saveBookImage(@RequestParam(value = "imageFile") MultipartFile imageFile,
       @RequestPart(value = "bookId") String bookId) {
-    bookImageService.addBookImage(imageFile, bookId);
+    bookImageService.saveBookImage(imageFile, bookId);
+  }
+
+  @PutMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void modifyBookImage(@PathVariable Long id, MultipartFile imageFile, String bookId) {
+    bookImageService.modifyBookImage(id, imageFile, bookId);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteBookImage(@PathVariable Long id) {
+    bookImageService.deleteBookImage(id);
   }
 }

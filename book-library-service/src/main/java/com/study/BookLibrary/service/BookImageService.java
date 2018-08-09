@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import java.util.Optional;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class BookImageService {
     return mapper.map(bookImageEntity, BookImageOutputDTO.class);
   }
 
-  public void addBookImage(MultipartFile imageFile, String bookId) {
+  public void saveBookImage(MultipartFile imageFile, String bookId) {
     Optional<BookEntity> book = bookRepository.findById(Long.parseLong(bookId));
     if (!book.isPresent()) {
       throw new NotFoundException("Can not create book_image without book.",
@@ -67,5 +68,30 @@ public class BookImageService {
     bookImageEntity.setFileName(imageFile.getOriginalFilename());
     bookImageEntity.setBook(book.get());
     bookImageRepository.save(bookImageEntity);
+  }
+
+  public void modifyBookImage(Long id, MultipartFile imageFile, String bookId) {
+    Optional<BookImageEntity> bookImage = bookImageRepository.findById(id);
+    if(!bookImage.isPresent())
+      throw new NotFoundException("Can not modify non-existing book_image.", ServiceErrorCode.NOT_FOUND);
+
+    Optional<BookEntity> book = bookRepository.findById(Long.parseLong(bookId));
+    if(!book.isPresent())
+      throw new NotFoundException("Can not modify book_image without book.", ServiceErrorCode.NOT_FOUND);
+
+    try {
+      bookImage.get().setImageDataFiles(imageFile.getBytes());
+    } catch (IOException e) {
+      throw new InternalServerErrorException(e.getMessage(), ServiceErrorCode.CONNECTION_FAILED);
+    }
+    bookImage.get().setFileName(imageFile.getOriginalFilename());
+    bookImage.get().setBook(book.get());
+  }
+
+  public void deleteBookImage(Long id) {
+    Optional<BookImageEntity> bookImage = bookImageRepository.findById(id);
+    if(!bookImage.isPresent())
+      throw new NotFoundException("Can not delete non-existing book_image.", ServiceErrorCode.NOT_FOUND);
+    bookImageRepository.deleteById(id);
   }
 }

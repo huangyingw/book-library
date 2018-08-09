@@ -36,7 +36,7 @@ public class BookController {
 
   @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public void addBook(@RequestBody BookInputDTO bookInputDTO) {
-    bookService.addBook(bookInputDTO);
+  public void saveBook(@RequestBody BookInputDTO bookInputDTO) {
+    bookService.saveBook(bookInputDTO);
   }
 }
