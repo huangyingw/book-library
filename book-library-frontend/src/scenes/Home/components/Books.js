@@ -32,7 +32,7 @@ class Books extends Component {
           <tbody>
             {this.state.allBooks.map(map =>
               <tr key={map.id} className='book'>
-                <td className='bookImage'><BookImage bookId = {map.id}/></td>
+                <td className='bookImage'><BookImage bookId={map.id} /></td>
                 <td id="description">
                   <p><b>Tytuł:</b> {map.title}</p>
                   <p><b>Opis:</b> {map.description}</p>

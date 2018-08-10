@@ -14,7 +14,7 @@ class BookImage extends Component {
     const url = SERVER_URL + '/library/book-image/book-id/' + bookId;
     axios.get(url)
       .then(response => {
-        if(response.status == 200) {
+        if (response.status == 200) {
           this.setState({
             bookImage: response.data.imageDataFiles
           })
@@ -23,7 +23,7 @@ class BookImage extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <img src={"data:image/svg+xml;base64," + this.state.bookImage} width='150' height='200' alt='map' />
       </div>
