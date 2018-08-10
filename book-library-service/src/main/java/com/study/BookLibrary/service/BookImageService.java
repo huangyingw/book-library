@@ -98,9 +98,8 @@ public class BookImageService {
       throw new NotFoundException("Can not delete non-existing book_image.",
           ServiceErrorCode.NOT_FOUND);
     }
+    /**It is required because of cross references, book have to remove reference to bookImage**/
     bookImage.get().getBook().setBookImage(null);
-    //It is required because of cross references, book have to remove bookImage reference
-
     bookImageRepository.deleteById(id);
   }
 }
