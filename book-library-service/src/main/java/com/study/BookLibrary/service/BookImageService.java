@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+@Slf4j
 @Service
 public class BookImageService {
 
@@ -101,5 +101,15 @@ public class BookImageService {
     /**It is required because of cross references, book have to remove reference to bookImage**/
     bookImage.get().getBook().setBookImage(null);
     bookImageRepository.deleteById(id);
+  }
+
+  public BookImageOutputDTO getBookImageByBookId(Long bookId) {
+    Optional<BookEntity> book = bookRepository.findById(bookId);
+    if(!book.isPresent())
+      throw new NotFoundException("Can not get book_image, valid book_id.", ServiceErrorCode.NOT_FOUND);
+    Optional<BookImageEntity> bookImage = bookImageRepository.findByBook(book.get());
+    if(!bookImage.isPresent())
+      throw new NotFoundException("Can not get book_image, valid book_id.", ServiceErrorCode.NOT_FOUND);
+    return mapper.map(bookImage.get(), BookImageOutputDTO.class);
   }
 }

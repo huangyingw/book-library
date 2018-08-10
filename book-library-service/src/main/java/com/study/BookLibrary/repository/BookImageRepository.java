@@ -1,5 +1,6 @@
 package com.study.BookLibrary.repository;
 
+import com.study.BookLibrary.entity.BookEntity;
 import com.study.BookLibrary.entity.BookImageEntity;
 import java.util.Optional;
 import jdk.nashorn.internal.runtime.options.Option;
@@ -10,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface BookImageRepository extends JpaRepository<BookImageEntity, Long> {
 
   Optional<BookImageEntity> findByFileName(String fileName);
+  Optional<BookImageEntity> findByBook(BookEntity book);
 }

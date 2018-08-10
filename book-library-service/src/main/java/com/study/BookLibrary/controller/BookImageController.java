@@ -1,6 +1,7 @@
 package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.output.BookImageOutputDTO;
+import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.service.BookImageService;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Slf4j
 @CrossOrigin
@@ -53,5 +55,10 @@ public class BookImageController {
   @ResponseStatus(HttpStatus.OK)
   public void deleteBookImage(@PathVariable Long id) {
     bookImageService.deleteBookImage(id);
+  }
+
+  @GetMapping(value = "/book-id/{bookId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<BookImageOutputDTO> getBookImageByBookId(@PathVariable Long bookId) {
+    return new ResponseEntity<>(bookImageService.getBookImageByBookId(bookId), HttpStatus.OK);
   }
 }
