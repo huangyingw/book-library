@@ -1,39 +1,44 @@
 # Book Library
-Application which allow borrowing books.
+BookLibraryService and BookLibraryFrontend.
 
 ## Getting Started
-[Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), [npm](https://www.npmjs.com/get-npm) are required.
+- [**Java 8**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [**npm**](https://www.npmjs.com/get-npm)
+- [**docker**](https://docs.docker.com/install/)
+- [**docker-compose**](https://docs.docker.com/compose/install/)
 
-## Installing
-To run BookLibraryService:
+## Installing (still development)
+**1. To run PostgreSQL**
 ```
-cd ./BookLibrary
+cd ./book-library-service/deployment
+docker-compose up -d
 ```
+Database management by **Adminer**:
+- Port: 8080
+- Host: localhost
+
+**2. To run BookLibraryService**
 ```
+cd ./book-library-service
 ./run.sh build
 ```
-To run BookLibraryFrontend:
+- Port: 8010
+- Host: localhost
+
+**3. To run BookLibraryFrontend**
 ```
 cd ./book-library-frontend
-```
-```
+
 npm install
-```
-```
+
 npm start
 ```
-## Running the tests
-Sample database by using MongoDB:
-```
-cd ./SampleDB
-```
-```
-python createDb.py
-```
+- Port: 4001
+- Host: localhost
 
 ## Build with
-* [Gradle](https://gradle.org/) - Dependency Management
-* [Webpack](https://webpack.js.org/) - Module Bundler
+* [**Gradle**](https://gradle.org/) - Dependency Management
+* [**Webpack**](https://webpack.js.org/) - Module Bundler
 
 ## Author
 * **Trong Manh Tu**
