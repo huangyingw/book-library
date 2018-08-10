@@ -20,20 +20,22 @@ public class PublisherService {
 
   private PublisherRepository publisherRepository;
 
+  private final Mapper mapper = new Mapper();
+
   @Autowired
   public PublisherService(PublisherRepository publisherRepository) {
     this.publisherRepository = publisherRepository;
   }
 
   public List<PublisherOutputDTO> getAllPublisher() {
-    return Mapper.mapToList(publisherRepository.findAll(), PublisherOutputDTO.class);
+    return mapper.mapToList(publisherRepository.findAll(), PublisherOutputDTO.class);
   }
 
   public PublisherOutputDTO getPublisherById(Long id) {
     PublisherEntity publisherEntity = publisherRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Publisher with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return Mapper.map(publisherEntity, PublisherOutputDTO.class);
+    return mapper.map(publisherEntity, PublisherOutputDTO.class);
   }
 
   public void savePublisher(PublisherInputDTO publisherInputDTO) {
@@ -43,7 +45,7 @@ public class PublisherService {
       throw new ConflictException("Can not create publisher, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
-    publisherRepository.save(Mapper.map(publisherInputDTO, PublisherEntity.class));
+    publisherRepository.save(mapper.map(publisherInputDTO, PublisherEntity.class));
   }
 
   public void modifyPublisher(Long id, PublisherInputDTO publisherInputDTO) {
@@ -51,7 +53,7 @@ public class PublisherService {
     if(!publisher.isPresent())
       throw new NotFoundException("Can not modify non-existing publisher.", ServiceErrorCode.NOT_FOUND);
 
-    Mapper.map(publisherInputDTO, publisher.get());
+    mapper.map(publisherInputDTO, publisher.get());
     publisherRepository.save(publisher.get());
   }
 

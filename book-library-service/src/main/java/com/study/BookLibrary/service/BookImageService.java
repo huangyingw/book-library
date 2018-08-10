@@ -15,15 +15,18 @@ import java.io.IOException;
 import java.util.List;
 
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+@Slf4j
 @Service
 public class BookImageService {
 
   private BookImageRepository bookImageRepository;
   private BookRepository bookRepository;
+
+  private final Mapper mapper = new Mapper();
 
   @Autowired
   public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository) {
@@ -32,14 +35,14 @@ public class BookImageService {
   }
 
   public List<BookImageOutputDTO> getAllBookImage() {
-    return Mapper.mapToList(bookImageRepository.findAll(), BookImageOutputDTO.class);
+    return mapper.mapToList(bookImageRepository.findAll(), BookImageOutputDTO.class);
   }
 
   public BookImageOutputDTO getBookImageById(Long id) {
     BookImageEntity bookImageEntity = bookImageRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Book image with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return Mapper.map(bookImageEntity, BookImageOutputDTO.class);
+    return mapper.map(bookImageEntity, BookImageOutputDTO.class);
   }
 
   public void saveBookImage(MultipartFile imageFile, String bookId) {
@@ -87,6 +90,7 @@ public class BookImageService {
 
   public void deleteBookImage(Long id) {
     Optional<BookImageEntity> bookImage = bookImageRepository.findById(id);
+    log.debug(bookImage.get().getFileName());
     if(!bookImage.isPresent())
       throw new NotFoundException("Can not delete non-existing book_image.", ServiceErrorCode.NOT_FOUND);
     bookImageRepository.deleteById(id);

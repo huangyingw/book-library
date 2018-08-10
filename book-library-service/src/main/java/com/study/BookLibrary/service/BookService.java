@@ -29,6 +29,8 @@ public class BookService {
   private CategoryRepository categoryRepository;
   private PublisherRepository publisherRepository;
 
+  private final Mapper mapper = new Mapper();
+
   @Autowired
   public BookService(BookRepository bookRepository, AuthorRepository authorRepository,
       CategoryRepository categoryRepository, PublisherRepository publisherRepository) {
@@ -39,14 +41,14 @@ public class BookService {
   }
 
   public List<BookOutputDTO> getAllBooks() {
-    return Mapper.mapToList(bookRepository.findAll(), BookOutputDTO.class);
+    return mapper.mapToList(bookRepository.findAll(), BookOutputDTO.class);
   }
 
   public BookOutputDTO getBookById(Long id) {
     BookEntity bookEntity = bookRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Book with id=" + id + " is not exist.",
             ServiceErrorCode.NOT_FOUND));
-    return Mapper.map(bookEntity, BookOutputDTO.class);
+    return mapper.map(bookEntity, BookOutputDTO.class);
   }
 
   public void saveBook(BookInputDTO bookInputDTO) {
@@ -73,7 +75,7 @@ public class BookService {
           ServiceErrorCode.ALREADY_EXIST);
     }
 
-    BookEntity bookEntity = Mapper.map(bookInputDTO, BookEntity.class);
+    BookEntity bookEntity = mapper.map(bookInputDTO, BookEntity.class);
     bookEntity.setAuthor(author.get());
     bookEntity.setCategory(category.get());
     bookEntity.setPublisher(publisher.get());
@@ -95,7 +97,7 @@ public class BookService {
     if(!publisher.isPresent())
       throw new NotFoundException("Can not modify book without publisher.", ServiceErrorCode.NOT_FOUND);
 
-    Mapper.map(bookInputDTO, book.get());
+    mapper.map(bookInputDTO, book.get());
     book.get().setAuthor(author.get());
     book.get().setCategory(category.get());
     book.get().setPublisher(publisher.get());

@@ -20,20 +20,22 @@ public class CategoryService {
 
   private CategoryRepository categoryRepository;
 
+  private final Mapper mapper = new Mapper();
+
   @Autowired
   public CategoryService(CategoryRepository categoryRepository) {
     this.categoryRepository = categoryRepository;
   }
 
   public List<CategoryOutputDTO> getAllCategory() {
-    return Mapper.mapToList(categoryRepository.findAll(), CategoryOutputDTO.class);
+    return mapper.mapToList(categoryRepository.findAll(), CategoryOutputDTO.class);
   }
 
   public CategoryOutputDTO getCategoryById(Long id) {
     CategoryEntity categoryEntity = categoryRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("Category with id=" + id + " is not exist",
             ServiceErrorCode.NOT_FOUND));
-    return Mapper.map(categoryEntity, CategoryOutputDTO.class);
+    return mapper.map(categoryEntity, CategoryOutputDTO.class);
   }
 
   public void saveCategory(CategoryInputDTO categoryInputDTO) {
@@ -42,7 +44,7 @@ public class CategoryService {
       throw new ConflictException("Can not create category, it is already exist.",
           ServiceErrorCode.ALREADY_EXIST);
     }
-    categoryRepository.save(Mapper.map(categoryInputDTO, CategoryEntity.class));
+    categoryRepository.save(mapper.map(categoryInputDTO, CategoryEntity.class));
   }
 
   public void modifyCategory(Long id, CategoryInputDTO categoryInputDTO) {
@@ -50,7 +52,7 @@ public class CategoryService {
     if(!category.isPresent())
       throw new NotFoundException("Can not modify non-existing category.", ServiceErrorCode.NOT_FOUND);
 
-    Mapper.map(categoryInputDTO, category.get());
+    mapper.map(categoryInputDTO, category.get());
     categoryRepository.save(category.get());
   }
 

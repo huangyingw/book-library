@@ -29,6 +29,9 @@ public class BookEntity {
   @JoinColumn(name = "publisher_id")
   private PublisherEntity publisher;
 
+  @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+  private BookImageEntity bookImage;
+
   public BookEntity() {
   }
 
@@ -78,6 +81,14 @@ public class BookEntity {
 
   public void setPublisher(PublisherEntity publisher) {
     this.publisher = publisher;
+  }
+
+  public BookImageEntity getBookImage() {
+    return bookImage;
+  }
+
+  public void setBookImage(BookImageEntity bookImage) {
+    this.bookImage = bookImage;
   }
 
   @Override

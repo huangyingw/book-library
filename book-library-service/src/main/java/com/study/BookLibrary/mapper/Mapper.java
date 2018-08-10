@@ -13,15 +13,15 @@ public final class Mapper {
     modelMapper.getConfiguration().setAmbiguityIgnored(true);
   }
 
-  public static <D, T> D map(T source, Class<D> outClass) {
+  public <D, T> D map(T source, Class<D> outClass) {
     return modelMapper.map(source, outClass);
   }
 
-  public static <D, T> void map(T source, D destination) {
+  public <D, T> void map(T source, D destination) {
     modelMapper.map(source, destination);
   }
 
-  public static <D, T> List<D> mapToList(List<T> sources, Class<D> outClass) {
+  public <D, T> List<D> mapToList(List<T> sources, Class<D> outClass) {
     return sources.stream().map(source -> map(source, outClass))
         .collect(Collectors.toList());
   }
