@@ -11,19 +11,21 @@ BookLibraryService and BookLibraryFrontend.
 **1. To run PostgreSQL**
 ```
 cd ./book-library-service/deployment
+
 docker-compose up -d
 ```
 Database management by **Adminer**:
-- Port: 8080
-- Host: localhost
+- _Port: 8080_
+- _Host: localhost_
 
 **2. To run BookLibraryService**
 ```
 cd ./book-library-service
+
 ./run.sh build
 ```
-- Port: 8010
-- Host: localhost
+- _Port: 8010_
+- _Host: localhost_
 
 **3. To run BookLibraryFrontend**
 ```
@@ -33,8 +35,8 @@ npm install
 
 npm start
 ```
-- Port: 4001
-- Host: localhost
+- _Port: 4001_
+- _Host: localhost_
 
 ## Build with
 * [**Gradle**](https://gradle.org/) - Dependency Management
