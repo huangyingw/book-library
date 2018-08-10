@@ -8,3 +8,8 @@ tr.book{
 p {
   margin: 10px;
 }
+
+.bookImage {
+  width: 150px;
+  height: 200px;
+}

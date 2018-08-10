@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import BookImage from './BookImage';
 import './Books.css';
 
 class Books extends Component {
@@ -31,7 +32,7 @@ class Books extends Component {
           <tbody>
             {this.state.allBooks.map(map =>
               <tr key={map.id} className='book'>
-                {/* <td><img src={"data:image/svg+xml;base64," + map.bookImage.imageDataFiles} width='150' height='200' alt='map' /></td> */}
+                <td className='bookImage'><BookImage bookId = {map.id}/></td>
                 <td id="description">
                   <p><b>Tytuł:</b> {map.title}</p>
                   <p><b>Opis:</b> {map.description}</p>
