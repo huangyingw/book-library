@@ -84,18 +84,26 @@ public class BookService {
 
   public void modifyBook(Long id, BookInputDTO bookInputDTO) {
     Optional<BookEntity> book = bookRepository.findById(id);
-    if(!book.isPresent())
+    if (!book.isPresent()) {
       throw new NotFoundException("Can not modify non-existing book.", ServiceErrorCode.NOT_FOUND);
+    }
 
     Optional<AuthorEntity> author = authorRepository.findById(bookInputDTO.getAuthorId());
-    if(!author.isPresent())
-      throw new NotFoundException("Can not modify book without author.", ServiceErrorCode.NOT_FOUND);
+    if (!author.isPresent()) {
+      throw new NotFoundException("Can not modify book without author.",
+          ServiceErrorCode.NOT_FOUND);
+    }
     Optional<CategoryEntity> category = categoryRepository.findById(bookInputDTO.getCategoryId());
-    if(!category.isPresent())
-      throw new NotFoundException("Can not modify book without category.", ServiceErrorCode.NOT_FOUND);
-    Optional<PublisherEntity> publisher = publisherRepository.findById(bookInputDTO.getPublisherId());
-    if(!publisher.isPresent())
-      throw new NotFoundException("Can not modify book without publisher.", ServiceErrorCode.NOT_FOUND);
+    if (!category.isPresent()) {
+      throw new NotFoundException("Can not modify book without category.",
+          ServiceErrorCode.NOT_FOUND);
+    }
+    Optional<PublisherEntity> publisher = publisherRepository
+        .findById(bookInputDTO.getPublisherId());
+    if (!publisher.isPresent()) {
+      throw new NotFoundException("Can not modify book without publisher.",
+          ServiceErrorCode.NOT_FOUND);
+    }
 
     mapper.map(bookInputDTO, book.get());
     book.get().setAuthor(author.get());
@@ -105,8 +113,9 @@ public class BookService {
   }
 
   public void deleteBook(Long id) {
-    if(!bookRepository.existsById(id))
+    if (!bookRepository.existsById(id)) {
       throw new NotFoundException("Can not delete non-existing book.", ServiceErrorCode.NOT_FOUND);
+    }
     bookRepository.deleteById(id);
   }
 }

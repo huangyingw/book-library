@@ -1,5 +1,6 @@
 package com.study.BookLibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -17,19 +18,19 @@ public class BookEntity {
 
   private String description;
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   @JoinColumn(name = "author_id")
   private AuthorEntity author;
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   @JoinColumn(name = "category_id")
   private CategoryEntity category;
 
-  @ManyToOne
+  @ManyToOne(optional = false)
   @JoinColumn(name = "publisher_id")
   private PublisherEntity publisher;
 
-  @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, optional = true)
   private BookImageEntity bookImage;
 
   public BookEntity() {

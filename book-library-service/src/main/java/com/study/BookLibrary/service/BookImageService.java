@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-@Slf4j
+
 @Service
 public class BookImageService {
 
@@ -72,12 +72,16 @@ public class BookImageService {
 
   public void modifyBookImage(Long id, MultipartFile imageFile, String bookId) {
     Optional<BookImageEntity> bookImage = bookImageRepository.findById(id);
-    if(!bookImage.isPresent())
-      throw new NotFoundException("Can not modify non-existing book_image.", ServiceErrorCode.NOT_FOUND);
+    if (!bookImage.isPresent()) {
+      throw new NotFoundException("Can not modify non-existing book_image.",
+          ServiceErrorCode.NOT_FOUND);
+    }
 
     Optional<BookEntity> book = bookRepository.findById(Long.parseLong(bookId));
-    if(!book.isPresent())
-      throw new NotFoundException("Can not modify book_image without book.", ServiceErrorCode.NOT_FOUND);
+    if (!book.isPresent()) {
+      throw new NotFoundException("Can not modify book_image without book.",
+          ServiceErrorCode.NOT_FOUND);
+    }
 
     try {
       bookImage.get().setImageDataFiles(imageFile.getBytes());
@@ -90,9 +94,13 @@ public class BookImageService {
 
   public void deleteBookImage(Long id) {
     Optional<BookImageEntity> bookImage = bookImageRepository.findById(id);
-    log.debug(bookImage.get().getFileName());
-    if(!bookImage.isPresent())
-      throw new NotFoundException("Can not delete non-existing book_image.", ServiceErrorCode.NOT_FOUND);
+    if (!bookImage.isPresent()) {
+      throw new NotFoundException("Can not delete non-existing book_image.",
+          ServiceErrorCode.NOT_FOUND);
+    }
+    bookImage.get().getBook().setBookImage(null);
+    //It is required because of cross references, book have to remove bookImage reference
+
     bookImageRepository.deleteById(id);
   }
 }

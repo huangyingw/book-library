@@ -19,7 +19,7 @@ public class BookImageEntity {
   @Lob
   private byte[] imageDataFiles;
 
-  @OneToOne
+  @OneToOne(optional = false)
   @JoinColumn(name = "book_id")
   private BookEntity book;
 

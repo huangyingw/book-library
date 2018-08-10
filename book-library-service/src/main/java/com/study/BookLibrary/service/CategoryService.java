@@ -49,16 +49,20 @@ public class CategoryService {
 
   public void modifyCategory(Long id, CategoryInputDTO categoryInputDTO) {
     Optional<CategoryEntity> category = categoryRepository.findById(id);
-    if(!category.isPresent())
-      throw new NotFoundException("Can not modify non-existing category.", ServiceErrorCode.NOT_FOUND);
+    if (!category.isPresent()) {
+      throw new NotFoundException("Can not modify non-existing category.",
+          ServiceErrorCode.NOT_FOUND);
+    }
 
     mapper.map(categoryInputDTO, category.get());
     categoryRepository.save(category.get());
   }
 
   public void deleteCategory(Long id) {
-    if(!categoryRepository.existsById(id))
-      throw new NotFoundException("Can not delete non-existing category.", ServiceErrorCode.NOT_FOUND);
+    if (!categoryRepository.existsById(id)) {
+      throw new NotFoundException("Can not delete non-existing category.",
+          ServiceErrorCode.NOT_FOUND);
+    }
     categoryRepository.deleteById(id);
   }
 }

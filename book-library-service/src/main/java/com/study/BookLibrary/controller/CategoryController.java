@@ -42,7 +42,8 @@ public class CategoryController {
 
   @PutMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void modifyCategory(@PathVariable Long id, @RequestBody CategoryInputDTO categoryInputDTO) {
+  public void modifyCategory(@PathVariable Long id,
+      @RequestBody CategoryInputDTO categoryInputDTO) {
     categoryService.modifyCategory(id, categoryInputDTO);
   }
 

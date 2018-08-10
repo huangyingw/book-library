@@ -42,7 +42,8 @@ public class PublisherController {
 
   @PutMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public void modifyPublisher(@PathVariable Long id, @RequestBody PublisherInputDTO publisherInputDTO) {
+  public void modifyPublisher(@PathVariable Long id,
+      @RequestBody PublisherInputDTO publisherInputDTO) {
     publisherService.modifyPublisher(id, publisherInputDTO);
   }
 
