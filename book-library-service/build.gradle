@@ -31,6 +31,8 @@ dependencies {
 	compile('org.modelmapper:modelmapper:0.7.4')
 	compile('org.postgresql:postgresql')
 	compile('org.projectlombok:lombok:1.16.8')
+	compile('net.coobird:thumbnailator:0.4.8')
+	compile('org.imgscalr:imgscalr-lib:4.2')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

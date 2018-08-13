@@ -1,4 +1,4 @@
-package com.study.BookLibrary.mapper;
+package com.study.BookLibrary.converter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,5 +25,4 @@ public final class Mapper {
     return sources.stream().map(source -> map(source, outClass))
         .collect(Collectors.toList());
   }
-
 }

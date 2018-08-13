@@ -7,7 +7,8 @@ import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.InternalServerErrorException;
 import com.study.BookLibrary.error.NotFoundException;
 import com.study.BookLibrary.error.ServiceErrorCode;
-import com.study.BookLibrary.mapper.Mapper;
+import com.study.BookLibrary.converter.ImageResizer;
+import com.study.BookLibrary.converter.Mapper;
 import com.study.BookLibrary.repository.BookImageRepository;
 
 import com.study.BookLibrary.repository.BookRepository;
@@ -26,12 +27,14 @@ public class BookImageService {
   private BookImageRepository bookImageRepository;
   private BookRepository bookRepository;
 
+  private ImageResizer imageResizer;
   private final Mapper mapper = new Mapper();
 
   @Autowired
-  public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository) {
+  public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository, ImageResizer imageResizer) {
     this.bookImageRepository = bookImageRepository;
     this.bookRepository = bookRepository;
+    this.imageResizer = imageResizer;
   }
 
   public List<BookImageOutputDTO> getAllBookImage() {
@@ -60,11 +63,19 @@ public class BookImageService {
     }
 
     BookImageEntity bookImageEntity = new BookImageEntity();
+    byte[] imageFileBytes;
     try {
-      bookImageEntity.setImageDataFiles(imageFile.getBytes());
+      imageFileBytes = imageFile.getBytes();
     } catch (IOException e) {
       throw new InternalServerErrorException(e.getMessage(), ServiceErrorCode.CONNECTION_FAILED);
     }
+
+    try {
+      bookImageEntity.setImageDataFiles(imageResizer.bilinearResize(imageFileBytes));
+    } catch (IOException e) {
+      throw new InternalServerErrorException(e.getMessage(), ServiceErrorCode.CONNECTION_FAILED);
+    }
+
     bookImageEntity.setFileName(imageFile.getOriginalFilename());
     bookImageEntity.setBook(book.get());
     bookImageRepository.save(bookImageEntity);

@@ -6,7 +6,7 @@ import com.study.BookLibrary.entity.PublisherEntity;
 import com.study.BookLibrary.error.ConflictException;
 import com.study.BookLibrary.error.NotFoundException;
 import com.study.BookLibrary.error.ServiceErrorCode;
-import com.study.BookLibrary.mapper.Mapper;
+import com.study.BookLibrary.converter.Mapper;
 import com.study.BookLibrary.repository.PublisherRepository;
 
 import java.util.List;
