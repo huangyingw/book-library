@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import BookImage from './BookImage';
+import BookImage from '../BookImage/BookImage';
 import './Books.css';
 
 class Books extends Component {

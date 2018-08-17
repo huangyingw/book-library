@@ -1,16 +1,17 @@
 .active {
   color: goldenrod;
-  outline: none 0;
+  outline: none;
 }
 
 li {
   border-left: 1px solid silver;
   border-right: 1px solid silver;
-  outline: 0;
+  outline: none;
 }
 
 li:hover {
   background-color: crimson;
+  outline: none;
 }
 
 nav ul {

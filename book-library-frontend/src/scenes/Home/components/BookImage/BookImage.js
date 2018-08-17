@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import placeholder from '../../../../assets/images/placeholder.png';
+
 class BookImage extends Component {
   state = {
     bookImage: [],
@@ -16,16 +18,21 @@ class BookImage extends Component {
       .then(response => {
         if (response.status == 200) {
           this.setState({
-            bookImage: response.data.imageDataFiles
+            bookImage: "data:image/png+jpg+jpeg;base64," + response.data.imageDataFiles
           })
         }
+      })
+      .catch(error => {
+        this.setState({
+          bookImage: placeholder
+        })
       })
   }
 
   render() {
     return (
       <div>
-        <img src={"data:image/svg+xml;base64," + this.state.bookImage} width='150' height='200' alt='map' />
+        <img src={this.state.bookImage} width='200' height='200' alt='' />
       </div>
     );
   }
