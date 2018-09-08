@@ -1,0 +1,31 @@
+extends: airbnb
+parser: babel-eslint
+plugins:
+  - react
+env:
+  jest: true
+  browser: true
+globals:
+  SERVER_URL: true
+
+rules:
+  eol-last:
+    - error
+    - never
+  max-len: 
+    - warn
+    - 120
+    - 2
+    - ignoreComments: true
+  comma-dangle: 
+    - error
+    - never
+  jsx-quotes: 
+    - error
+    - prefer-double
+  no-unused-vars: off
+  prefer-template: off
+  react/prop-types: off
+  react/jsx-filename-extension: off
+  react/destructuring-assignment: off
+  react/prefer-stateless-function: off

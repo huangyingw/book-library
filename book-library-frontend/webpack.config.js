@@ -1,9 +1,11 @@
-var webpack = require('webpack');
-var environment = process.env.NODE_ENV === 'development' ? 'development' : 'production';
-var SERVER_URL = {
+const webpack = require('webpack');
+const path = require('path');
+
+const environment = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const SERVER_URL = {
   development: JSON.stringify('http://localhost:8010'),
   production: JSON.stringify('http://production:8010')
-}
+};
 
 module.exports = {
   entry: './src/index.js',
@@ -12,7 +14,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader', 'eslint-loader']
       },
       {
         test: /\.css$/,
@@ -28,7 +30,7 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, '/dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -38,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'SERVER_URL': SERVER_URL[environment]
+      SERVER_URL: SERVER_URL[environment]
     })
   ]
 };
