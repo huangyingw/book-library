@@ -6,7 +6,7 @@ import './Home.css';
 export default class Home extends Component {
   render() {
     return (
-      <div>
+      <div id="page-wrap">
         <h2>Wypożyczalnia książek</h2>
         <Books />
       </div>

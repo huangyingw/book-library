@@ -1,4 +1,8 @@
-div {
+#page-wrap {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
 }
