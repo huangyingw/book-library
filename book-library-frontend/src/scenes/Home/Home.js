@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Books from './components/Books/Books';
+import Books from '../../components/Books/Books';
 import './Home.css';
 
 export default class Home extends Component {

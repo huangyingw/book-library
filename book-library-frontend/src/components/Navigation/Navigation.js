@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { slide as Menu } from 'react-burger-menu';
+import { push as Menu } from 'react-burger-menu';
 
-import crossIcon from '../assets/images/cross_icon.png';
-import hamburgerIcon from '../assets/images/hamburger_icon.png';
+import Images from '../../assets/Images';
 import './Navigation.css';
 
 const Navigation = () => (
@@ -12,8 +11,8 @@ const Navigation = () => (
       noOverlay
       pageWrapId="page-wrap"
       outerContainerId="outer-container"
-      customCrossIcon={<img src={crossIcon} alt="cross-icon" />}
-      customBurgerIcon={<img src={hamburgerIcon} alt="burger-icon" />}
+      customCrossIcon={<img src={Images.crossIcon} alt="cross-icon" />}
+      customBurgerIcon={<img src={Images.hamburgerIcon} alt="burger-icon" />}
     >
       <div id="bm-menu">
         <nav>

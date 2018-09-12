@@ -30,3 +30,5 @@ rules:
   react/jsx-filename-extension: off
   react/destructuring-assignment: off
   react/prefer-stateless-function: off
+  import/no-extraneous-dependencies: off
+  global-require: off
