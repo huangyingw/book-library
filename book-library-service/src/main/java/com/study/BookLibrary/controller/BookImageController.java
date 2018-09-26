@@ -1,9 +1,9 @@
 package com.study.BookLibrary.controller;
 
 import com.study.BookLibrary.dto.output.BookImageOutputDTO;
-import com.study.BookLibrary.entity.BookImageEntity;
 import com.study.BookLibrary.service.BookImageService;
 
+import io.swagger.annotations.Api;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Slf4j
+@Api(
+    tags = "BookImage",
+    description = "the book image API"
+)
 @CrossOrigin
 @RestController
 @RequestMapping("/library/book-image")

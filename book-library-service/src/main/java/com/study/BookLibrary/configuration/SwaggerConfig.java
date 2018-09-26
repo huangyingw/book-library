@@ -21,7 +21,7 @@ public class SwaggerConfig {
         .apiInfo(apiInfo("Book Library"))
         .select()
         .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.any())
+        .paths(PathSelectors.ant("/library/**"))
         .build();
   }
 

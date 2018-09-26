@@ -4,6 +4,7 @@ import com.study.BookLibrary.dto.input.AuthorInputDTO;
 import com.study.BookLibrary.dto.output.AuthorOutputDTO;
 import com.study.BookLibrary.service.AuthorService;
 
+import io.swagger.annotations.Api;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@Api(
+    tags = "Author",
+    description = "the author API"
+)
 @CrossOrigin
 @RestController
 @RequestMapping("/library/author")

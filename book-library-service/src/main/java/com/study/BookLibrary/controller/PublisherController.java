@@ -4,6 +4,7 @@ import com.study.BookLibrary.dto.input.PublisherInputDTO;
 import com.study.BookLibrary.dto.output.PublisherOutputDTO;
 import com.study.BookLibrary.service.PublisherService;
 
+import io.swagger.annotations.Api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Api(
+    tags = "Publisher",
+    description = "the publisher API"
+)
 @CrossOrigin
 @RestController
 @RequestMapping("/library/publisher")
