@@ -1,9 +1,11 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.3.RELEASE'
+		springBootVersion = '2.1.0.BUILD-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -21,20 +23,22 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
-	compile('io.springfox:springfox-swagger2:[2.7.0, 2.9.9]')
-	compile('io.springfox:springfox-swagger-ui:[2.7.0, 2.9.9]')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.modelmapper:modelmapper:0.7.4')
-	compile('org.postgresql:postgresql')
-	compile('org.projectlombok:lombok:1.16.8')
-	compile('net.coobird:thumbnailator:0.4.8')
-	compile('org.imgscalr:imgscalr-lib:4.2')
+	implementation('io.springfox:springfox-swagger2:[2.7.0, 2.9.9]')
+	implementation('io.springfox:springfox-swagger-ui:[2.7.0, 2.9.9]')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.modelmapper:modelmapper:0.7.4')
+	implementation('org.postgresql:postgresql')
+	implementation('org.projectlombok:lombok:1.16.8')
+	implementation('net.coobird:thumbnailator:0.4.8')
+	implementation('org.imgscalr:imgscalr-lib:4.2')
 	runtime('com.h2database:h2')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
