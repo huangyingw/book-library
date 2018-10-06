@@ -22,9 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/library/publisher")
 public class PublisherController {
 
-  private PublisherService publisherService;
+  private final PublisherService publisherService;
 
-  @Autowired
   public PublisherController(PublisherService publisherService) {
     this.publisherService = publisherService;
   }

@@ -18,26 +18,26 @@ import java.util.List;
 import java.util.Optional;
 
 import com.study.BookLibrary.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
 
-  private BookRepository bookRepository;
-  private AuthorRepository authorRepository;
-  private CategoryRepository categoryRepository;
-  private PublisherRepository publisherRepository;
+  private final BookRepository bookRepository;
+  private final AuthorRepository authorRepository;
+  private final CategoryRepository categoryRepository;
+  private final PublisherRepository publisherRepository;
 
-  private final Mapper mapper = new Mapper();
+  private final Mapper mapper;
 
-  @Autowired
   public BookService(BookRepository bookRepository, AuthorRepository authorRepository,
-      CategoryRepository categoryRepository, PublisherRepository publisherRepository) {
+      CategoryRepository categoryRepository, PublisherRepository publisherRepository,
+      Mapper mapper) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
     this.categoryRepository = categoryRepository;
     this.publisherRepository = publisherRepository;
+    this.mapper = mapper;
   }
 
   public List<BookOutputDTO> getAllBooks() {

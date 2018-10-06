@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BookImageRepository extends JpaRepository<BookImageEntity, Long> {
 
   Optional<BookImageEntity> findByFileName(String fileName);
+
   Optional<BookImageEntity> findByBook(BookEntity book);
 }

@@ -25,9 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/library/author")
 public class AuthorController {
 
-  private AuthorService authorService;
+  private final AuthorService authorService;
 
-  @Autowired
   public AuthorController(AuthorService authorService) {
     this.authorService = authorService;
   }

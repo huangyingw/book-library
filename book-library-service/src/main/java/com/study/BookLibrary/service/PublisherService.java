@@ -12,19 +12,19 @@ import com.study.BookLibrary.repository.PublisherRepository;
 import java.util.List;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PublisherService {
 
-  private PublisherRepository publisherRepository;
+  private final PublisherRepository publisherRepository;
 
-  private final Mapper mapper = new Mapper();
+  private final Mapper mapper;
 
-  @Autowired
-  public PublisherService(PublisherRepository publisherRepository) {
+  public PublisherService(PublisherRepository publisherRepository,
+      Mapper mapper) {
     this.publisherRepository = publisherRepository;
+    this.mapper = mapper;
   }
 
   public List<PublisherOutputDTO> getAllPublisher() {

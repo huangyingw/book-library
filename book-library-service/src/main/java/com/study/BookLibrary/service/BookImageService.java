@@ -17,24 +17,24 @@ import java.util.List;
 
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 @Slf4j
 @Service
 public class BookImageService {
 
-  private BookImageRepository bookImageRepository;
-  private BookRepository bookRepository;
+  private final BookImageRepository bookImageRepository;
+  private final BookRepository bookRepository;
+  private final Mapper mapper;
+  private final ImageResizer imageResizer;
 
-  private ImageResizer imageResizer;
-  private final Mapper mapper = new Mapper();
-
-  @Autowired
-  public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository, ImageResizer imageResizer) {
+  public BookImageService(BookImageRepository bookImageRepository, BookRepository bookRepository,
+      ImageResizer imageResizer, Mapper mapper) {
     this.bookImageRepository = bookImageRepository;
     this.bookRepository = bookRepository;
     this.imageResizer = imageResizer;
+    this.mapper = mapper;
   }
 
   public List<BookImageOutputDTO> getAllBookImage() {
@@ -116,11 +116,15 @@ public class BookImageService {
 
   public BookImageOutputDTO getBookImageByBookId(Long bookId) {
     Optional<BookEntity> book = bookRepository.findById(bookId);
-    if(!book.isPresent())
-      throw new NotFoundException("Can not get book_image, valid book_id.", ServiceErrorCode.NOT_FOUND);
+    if (!book.isPresent()) {
+      throw new NotFoundException("Can not get book_image, valid book_id.",
+          ServiceErrorCode.NOT_FOUND);
+    }
     Optional<BookImageEntity> bookImage = bookImageRepository.findByBook(book.get());
-    if(!bookImage.isPresent())
-      throw new NotFoundException("Can not get book_image, valid book_id.", ServiceErrorCode.NOT_FOUND);
+    if (!bookImage.isPresent()) {
+      throw new NotFoundException("Can not get book_image, valid book_id.",
+          ServiceErrorCode.NOT_FOUND);
+    }
     return mapper.map(bookImage.get(), BookImageOutputDTO.class);
   }
 }

@@ -3,14 +3,16 @@ package com.study.BookLibrary.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Component
+public class Mapper {
 
-public final class Mapper {
+  private final ModelMapper modelMapper;
 
-  private static final ModelMapper modelMapper = new ModelMapper();
-
-  public Mapper() {
-    modelMapper.getConfiguration().setAmbiguityIgnored(true);
+  public Mapper(ModelMapper modelMapper) {
+    this.modelMapper = modelMapper;
   }
 
   public <D, T> D map(T source, Class<D> outClass) {

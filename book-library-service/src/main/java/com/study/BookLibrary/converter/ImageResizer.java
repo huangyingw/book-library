@@ -21,11 +21,12 @@ public class ImageResizer {
   public ImageResizer() {
   }
 
-  //Dwuliniowe
+  //Dwuliniowede
   //868ms, 6242
   public byte[] bilinearResize(byte[] imageDataFile) throws IOException {
     BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageDataFile));
-    BufferedImage bufferedThumbnail = Thumbnails.of(bufferedImage).size(WIDTH, HEIGHT).asBufferedImage();
+    BufferedImage bufferedThumbnail = Thumbnails.of(bufferedImage).size(WIDTH, HEIGHT)
+        .asBufferedImage();
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ImageIO.write(bufferedThumbnail, formatName, outputStream);

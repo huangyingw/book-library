@@ -12,19 +12,19 @@ import com.study.BookLibrary.repository.AuthorRepository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorService {
 
-  private AuthorRepository authorRepository;
+  private final AuthorRepository authorRepository;
 
-  private final Mapper mapper = new Mapper();
+  private final Mapper mapper;
 
-  @Autowired
-  public AuthorService(AuthorRepository authorRepository) {
+  public AuthorService(AuthorRepository authorRepository,
+      Mapper mapper) {
     this.authorRepository = authorRepository;
+    this.mapper = mapper;
   }
 
   public List<AuthorOutputDTO> getAllAuthors() {

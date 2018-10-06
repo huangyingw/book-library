@@ -24,9 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/library/book-image")
 public class BookImageController {
 
-  private BookImageService bookImageService;
+  private final BookImageService bookImageService;
 
-  @Autowired
   public BookImageController(BookImageService bookImageService) {
     this.bookImageService = bookImageService;
   }

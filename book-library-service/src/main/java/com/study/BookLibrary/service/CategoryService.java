@@ -12,19 +12,19 @@ import com.study.BookLibrary.repository.CategoryRepository;
 import java.util.List;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryService {
 
-  private CategoryRepository categoryRepository;
+  private final CategoryRepository categoryRepository;
 
-  private final Mapper mapper = new Mapper();
+  private final Mapper mapper;
 
-  @Autowired
-  public CategoryService(CategoryRepository categoryRepository) {
+  public CategoryService(CategoryRepository categoryRepository,
+      Mapper mapper) {
     this.categoryRepository = categoryRepository;
+    this.mapper = mapper;
   }
 
   public List<CategoryOutputDTO> getAllCategory() {
