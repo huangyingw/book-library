@@ -1,46 +1,31 @@
 # Book Library
-BookLibraryService and BookLibraryFrontend.
+Web application for managing book library
+## Documentation
+- entities are in entity-relationship model (`publisher`, `book-image`, `author`, `category`, `book`)
+- `publisher`, `category`, `author`, `book` name is unique
+- `book` does not require `book-image`
+- `book` can contain many `authors` and `categories`
+- database PostgresSQL
 
-## Getting Started
-- [**Java 8**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-- [**npm**](https://www.npmjs.com/get-npm)
-- [**docker**](https://docs.docker.com/install/)
-- [**docker-compose**](https://docs.docker.com/compose/install/)
+## Launching
+- PostgreSQL
+```bash
+cd ./book-library-service/
 
-## Installing (still development)
-**1. To run PostgreSQL**
+docker-compose -f deployment/docker-compose.yml up -d
 ```
-cd ./book-library-service/deployment
-
-docker-compose up -d
-```
-Database management by **Adminer**:
-- _Port: 8080_
-- _Host: localhost_
-
-**2. To run BookLibraryService**
-```
+- book-library-service
+```bash
 cd ./book-library-service
-
-./run.sh build
+./gradlew clean build
+./run.sh
 ```
-- _Port: 8010_
-- _Host: localhost_
 
-**3. To run BookLibraryFrontend**
-```
+- book-library-frontend
+```bash
 cd ./book-library-frontend
 
 npm install
 
 npm start
 ```
-- _Port: 4001_
-- _Host: localhost_
-
-## Build with
-* [**Gradle**](https://gradle.org/) - Dependency Management
-* [**Webpack**](https://webpack.js.org/) - Module Bundler
-
-## Author
-* **Trong Manh Tu**
